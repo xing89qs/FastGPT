@@ -12,7 +12,9 @@ export enum FlowNodeTemplateTypeEnum {
   communication = 'communication',
 
   other = 'other',
-  teamApp = 'teamApp'
+  teamApp = 'teamApp',
+
+  game = 'game'
 }
 
 export enum WorkflowIOValueTypeEnum {

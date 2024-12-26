@@ -14,6 +14,11 @@ export const workflowNodeTemplateList = [
     list: []
   },
   {
+    type: FlowNodeTemplateTypeEnum.game,
+    label: i18nT('common:core.module.template.Game function'),
+    list: []
+  },
+  {
     type: FlowNodeTemplateTypeEnum.search,
     label: i18nT('common:core.workflow.template.Search'),
     list: []
