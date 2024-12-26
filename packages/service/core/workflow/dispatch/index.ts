@@ -31,6 +31,7 @@ import { dispatchDatasetConcat } from './dataset/concat';
 import { dispatchAnswer } from './tools/answer';
 import { dispatchClassifyQuestion } from './agent/classifyQuestion';
 import { dispatchContentExtract } from './agent/extract';
+import { dispatchStoryCreation } from './agent/storyCreation';
 import { dispatchHttp468Request } from './tools/http468';
 import { dispatchAppRequest } from './abandoned/runApp';
 import { dispatchQueryExtension } from './tools/queryExternsion';
@@ -81,6 +82,7 @@ const callbackMap: Record<FlowNodeTypeEnum, Function> = {
   [FlowNodeTypeEnum.datasetConcatNode]: dispatchDatasetConcat,
   [FlowNodeTypeEnum.classifyQuestion]: dispatchClassifyQuestion,
   [FlowNodeTypeEnum.contentExtract]: dispatchContentExtract,
+  [FlowNodeTypeEnum.storyCreation]: dispatchStoryCreation,
   [FlowNodeTypeEnum.httpRequest468]: dispatchHttp468Request,
   [FlowNodeTypeEnum.appModule]: dispatchRunAppNode,
   [FlowNodeTypeEnum.pluginModule]: dispatchRunPlugin,

@@ -34,6 +34,7 @@ import { LoopStartNode } from './system/loop/loopStart';
 import { LoopEndNode } from './system/loop/loopEnd';
 import { FormInputNode } from './system/interactive/formInput';
 import { ToolParamsNode } from './system/toolParams';
+import { StoryCreationModule } from './system/storyCreation';
 
 const systemNodes: FlowNodeTemplateType[] = [
   AiChatModule,
@@ -43,6 +44,7 @@ const systemNodes: FlowNodeTemplateType[] = [
   ClassifyQuestionModule,
   ContextExtractModule,
   DatasetConcatModule,
+  StoryCreationModule,
   ToolModule,
   ToolParamsNode,
   StopToolNode,
