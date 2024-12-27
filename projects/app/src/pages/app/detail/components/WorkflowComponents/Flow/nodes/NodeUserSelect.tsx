@@ -118,6 +118,99 @@ const NodeUserSelect = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
             </Button>
           </Box>
         );
+      },
+      [NodeInputKeyEnum.storyChoices]: ({
+        key: optionKey,
+        value = [],
+        ...props
+      }: FlowNodeInputItemType) => {
+        const options = value as UserSelectOptionItemType[];
+        return (
+          <Box>
+            {options.map((item, i) => (
+              <Box key={item.key} mb={4}>
+                <HStack spacing={1}>
+                  <MyTooltip label={t('common:common.Delete')}>
+                    <MyIcon
+                      mt={0.5}
+                      name={'minus'}
+                      w={'0.8rem'}
+                      cursor={'pointer'}
+                      color={'myGray.600'}
+                      _hover={{ color: 'red.600' }}
+                      onClick={() => {
+                        onChangeNode({
+                          nodeId,
+                          type: 'updateInput',
+                          key: optionKey,
+                          value: {
+                            ...props,
+                            key: optionKey,
+                            value: options.filter((input) => input.key !== item.key)
+                          }
+                        });
+                      }}
+                    />
+                  </MyTooltip>
+                  <Box color={'myGray.600'} fontWeight={'medium'} fontSize={'sm'}>
+                    {t('common:option') + (i + 1)}
+                  </Box>
+                </HStack>
+                <Box position={'relative'} mt={1}>
+                  <Input
+                    defaultValue={item.value}
+                    bg={'white'}
+                    fontSize={'sm'}
+                    onChange={(e) => {
+                      const newVal = options.map((val) =>
+                        val.key === item.key
+                          ? {
+                              ...val,
+                              value: e.target.value
+                            }
+                          : val
+                      );
+                      onChangeNode({
+                        nodeId,
+                        type: 'updateInput',
+                        key: optionKey,
+                        value: {
+                          ...props,
+                          key: optionKey,
+                          value: newVal
+                        }
+                      });
+                    }}
+                  />
+                  <SourceHandle
+                    nodeId={nodeId}
+                    handleId={getHandleId(nodeId, 'source', item.key)}
+                    position={Position.Right}
+                    translate={[34, 0]}
+                  />
+                </Box>
+              </Box>
+            ))}
+            <Button
+              fontSize={'sm'}
+              leftIcon={<MyIcon name={'common/addLight'} w={4} />}
+              onClick={() => {
+                onChangeNode({
+                  nodeId,
+                  type: 'updateInput',
+                  key: optionKey,
+                  value: {
+                    ...props,
+                    key: optionKey,
+                    value: options.concat({ value: '', key: getNanoid() })
+                  }
+                });
+              }}
+            >
+              {t('common:core.module.Add_choices')}
+            </Button>
+          </Box>
+        );
       }
     }),
     [nodeId, onChangeNode, t]

@@ -122,7 +122,8 @@ enum FlowTypeEnum {
   queryExtension = 'cfr',
   tools = 'tools',
   stopTool = 'stopTool',
-  lafModule = 'lafModule'
+  lafModule = 'lafModule',
+  audioGeneration = 'audioGeneration'
 }
 enum OutputTypeEnum {
   answer = 'answer',
@@ -263,6 +264,7 @@ export const v1Workflow2V2 = (
       [FlowTypeEnum.classifyQuestion]: FlowNodeTypeEnum.classifyQuestion,
       [FlowTypeEnum.contentExtract]: FlowNodeTypeEnum.contentExtract,
       [FlowTypeEnum.storyCreation]: FlowNodeTypeEnum.storyCreation,
+      [FlowTypeEnum.audioGeneration]: FlowNodeTypeEnum.audioGeneration,
       [FlowTypeEnum.httpRequest468]: FlowNodeTypeEnum.httpRequest468,
       [FlowTypeEnum.runApp]: FlowNodeTypeEnum.runApp,
       [FlowTypeEnum.pluginModule]: FlowNodeTypeEnum.pluginModule,

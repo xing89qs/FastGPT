@@ -30,52 +30,52 @@ export const StoryCreationModule: FlowNodeTemplateType = {
   version: '481',
   inputs: [
     {
-      ...Input_Template_SelectAIModel,
-      llmModelType: LLMModelTypeEnum.extractFields
-    },
-    {
       key: NodeInputKeyEnum.description,
       renderTypeList: [FlowNodeInputTypeEnum.textarea, FlowNodeInputTypeEnum.reference],
       valueType: WorkflowIOValueTypeEnum.string,
-      label: i18nT('workflow:extraction_requirements_description'),
-      description: i18nT('workflow:extraction_requirements_description_detail'),
-      placeholder: i18nT('workflow:extraction_requirements_placeholder')
-    },
-    Input_Template_History,
-    {
-      key: NodeInputKeyEnum.contextExtractInput,
-      renderTypeList: [FlowNodeInputTypeEnum.reference, FlowNodeInputTypeEnum.textarea],
-      label: i18nT('workflow:text_to_extract'),
-      required: true,
-      valueType: WorkflowIOValueTypeEnum.string,
-      toolDescription: i18nT('workflow:content_to_retrieve')
+      label: i18nT('workflow:story_creation_background_setting'),
+      description: i18nT('workflow:story_creation_background_setting_tip'),
+      placeholder: i18nT('workflow:story_creation_background_setting_placeholder')
     },
     {
-      key: NodeInputKeyEnum.extractKeys,
+      key: NodeInputKeyEnum.storyContextDialogs,
       renderTypeList: [FlowNodeInputTypeEnum.custom],
-      label: '',
       valueType: WorkflowIOValueTypeEnum.any,
-      description: i18nT('workflow:target_fields_description'),
-      value: [] // {valueType: string; desc: string; key: string; required: boolean; enum: string[]}[]
+      label: '',
+      value: []
+    },
+    {
+      key: NodeInputKeyEnum.storyChoices,
+      renderTypeList: [FlowNodeInputTypeEnum.custom],
+      valueType: WorkflowIOValueTypeEnum.any,
+      label: '',
+      value: []
     }
   ],
   outputs: [
     {
       id: NodeOutputKeyEnum.success,
       key: NodeOutputKeyEnum.success,
-      label: i18nT('workflow:full_field_extraction'),
+      label: 'generationStatus',
       required: true,
-      description: i18nT('workflow:full_field_extraction_description'),
+      description: 'generationStatus',
       valueType: WorkflowIOValueTypeEnum.boolean,
       type: FlowNodeOutputTypeEnum.static
     },
     {
-      id: NodeOutputKeyEnum.contextExtractFields,
-      key: NodeOutputKeyEnum.contextExtractFields,
-      label: i18nT('workflow:complete_extraction_result'),
+      id: NodeOutputKeyEnum.storyCreation,
+      key: NodeOutputKeyEnum.storyCreation,
+      label: 'storyCreation',
       required: true,
-      description: i18nT('workflow:complete_extraction_result_description'),
-      valueType: WorkflowIOValueTypeEnum.string,
+      valueType: WorkflowIOValueTypeEnum.arrayDialog,
+      type: FlowNodeOutputTypeEnum.static
+    },
+    {
+      id: NodeOutputKeyEnum.storyChoices,
+      key: NodeOutputKeyEnum.storyChoices,
+      label: 'storyChoices',
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.arrayString,
       type: FlowNodeOutputTypeEnum.static
     }
   ]

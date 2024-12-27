@@ -98,6 +98,21 @@ export type DispatchNodeResponseType = {
   nodeInputs?: Record<string, any>;
   nodeOutputs?: Record<string, any>;
   mergeSignId?: string;
+  storyCreation?: {
+    role: string;
+    text: string;
+  }[];
+  storyChoices?: string[];
+  audioResult?: {
+    audioUrl: string;
+    role: string;
+    text: string;
+  }[];
+  imageResult?: {
+    imageUrl: string;
+    role: string;
+    text: string;
+  }[];
 
   // bill
   tokens?: number;

@@ -28,6 +28,7 @@ export enum WorkflowIOValueTypeEnum {
   arrayObject = 'arrayObject',
   arrayAny = 'arrayAny',
   any = 'any',
+  arrayDialog = 'arrayDialog',
 
   chatHistory = 'chatHistory',
   datasetQuote = 'datasetQuote',
@@ -88,6 +89,20 @@ export const toolValueTypeList = [
       type: 'array',
       items: {
         type: 'boolean'
+      }
+    }
+  },
+  {
+    label: 'array<dialog>',
+    value: WorkflowIOValueTypeEnum.arrayDialog,
+    jsonSchema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          text: { type: 'string' },
+          role: { type: 'string' }
+        }
       }
     }
   }
@@ -214,7 +229,11 @@ export enum NodeInputKeyEnum {
 
   // comment
   commentText = 'commentText',
-  commentSize = 'commentSize'
+  commentSize = 'commentSize',
+  storyContextDialogs = 'storyContextDialogs',
+  storyChoices = 'storyChoices',
+  storyCreation = 'storyCreation',
+  audioGeneration = 'audioGeneration'
 }
 
 export enum NodeOutputKeyEnum {
@@ -266,7 +285,12 @@ export enum NodeOutputKeyEnum {
   loopStartIndex = 'loopStartIndex',
 
   // form input
-  formInputResult = 'formInputResult'
+  formInputResult = 'formInputResult',
+  storyCreation = 'storyCreation',
+  storyChoices = 'storyChoices',
+  audioUrls = 'audioUrls',
+  audioResult = 'audioResult',
+  imageResult = 'imageResult'
 }
 
 export enum VariableInputEnum {
@@ -349,6 +373,7 @@ export const ArrayTypeMap: Record<WorkflowIOValueTypeEnum, WorkflowIOValueTypeEn
   [WorkflowIOValueTypeEnum.arrayNumber]: WorkflowIOValueTypeEnum.arrayNumber,
   [WorkflowIOValueTypeEnum.arrayBoolean]: WorkflowIOValueTypeEnum.arrayBoolean,
   [WorkflowIOValueTypeEnum.arrayObject]: WorkflowIOValueTypeEnum.arrayObject,
+  [WorkflowIOValueTypeEnum.arrayDialog]: WorkflowIOValueTypeEnum.arrayDialog,
   [WorkflowIOValueTypeEnum.chatHistory]: WorkflowIOValueTypeEnum.arrayObject,
   [WorkflowIOValueTypeEnum.datasetQuote]: WorkflowIOValueTypeEnum.arrayObject,
   [WorkflowIOValueTypeEnum.dynamic]: WorkflowIOValueTypeEnum.arrayObject,

@@ -230,7 +230,7 @@ function variableFilter(
 
   return variables.filter((item) => {
     const labelMatch = item.label.toLowerCase().includes(lowerCaseQuery);
-    const keyMatch = item.key.toLowerCase().includes(lowerCaseQuery);
+    const keyMatch = item.key ? item.key.toLowerCase().includes(lowerCaseQuery) : false;
     const parentLabelMatch = item.parent.label.toLowerCase().includes(lowerCaseQuery);
 
     return labelMatch || keyMatch || parentLabelMatch;

@@ -108,7 +108,7 @@ export enum FlowNodeTypeEnum {
   workflowStart = 'workflowStart',
   chatNode = 'chatNode',
   storyCreation = 'storyCreation',
-
+  audioGeneration = 'audioGeneration',
   datasetSearchNode = 'datasetSearchNode',
   datasetConcatNode = 'datasetConcatNode',
 
@@ -137,7 +137,8 @@ export enum FlowNodeTypeEnum {
   loopStart = 'loopStart',
   loopEnd = 'loopEnd',
   formInput = 'formInput',
-  comment = 'comment'
+  comment = 'comment',
+  imageGeneration = 'imageGeneration'
 }
 
 // node IO value type

@@ -35,7 +35,8 @@ import { LoopEndNode } from './system/loop/loopEnd';
 import { FormInputNode } from './system/interactive/formInput';
 import { ToolParamsNode } from './system/toolParams';
 import { StoryCreationModule } from './system/storyCreation';
-
+import { AudioGenerationModule } from './system/audioGeneration';
+import { ImageGenerationModule } from './system/imageGeneration';
 const systemNodes: FlowNodeTemplateType[] = [
   AiChatModule,
   TextEditorNode,
@@ -45,6 +46,8 @@ const systemNodes: FlowNodeTemplateType[] = [
   ContextExtractModule,
   DatasetConcatModule,
   StoryCreationModule,
+  AudioGenerationModule,
+  ImageGenerationModule,
   ToolModule,
   ToolParamsNode,
   StopToolNode,

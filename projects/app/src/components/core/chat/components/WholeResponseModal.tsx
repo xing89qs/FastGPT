@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Box, Flex, BoxProps, useDisclosure, HStack } from '@chakra-ui/react';
+import { Box, Flex, BoxProps, useDisclosure, HStack, Button } from '@chakra-ui/react';
 import type { ChatHistoryItemResType } from '@fastgpt/global/core/chat/type.d';
 import { useTranslation } from 'next-i18next';
 import { moduleTemplatesFlat } from '@fastgpt/global/core/workflow/template/constants';
@@ -167,6 +167,163 @@ export const WholeResponseContent = ({
         />
         <Row label={t('workflow:response.Error')} value={activeModule?.error} />
         <Row label={t('chat:response.node_inputs')} value={activeModule?.nodeInputs} />
+        <Row
+          label={'Story Choices'}
+          rawDom={
+            activeModule?.storyChoices?.length ? (
+              <Box px={3} py={2} border={'base'} borderRadius={'md'}>
+                {activeModule?.storyChoices?.map((choice: string, i: number) => (
+                  <Box
+                    key={i}
+                    _notLast={{
+                      borderBottom: '1px solid',
+                      borderBottomColor: 'myWhite.700',
+                      mb: 2
+                    }}
+                    pb={2}
+                    whiteSpace={'pre-wrap'}
+                  >
+                    {choice}
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              ''
+            )
+          }
+        />
+        <Row
+          label={'Story Creation'}
+          rawDom={
+            activeModule?.storyCreation?.length ? (
+              <Box px={3} py={2} border={'base'} borderRadius={'md'}>
+                {activeModule?.storyCreation?.map(
+                  (item: { role: string; text: string }, i: number) => (
+                    <Box
+                      key={i}
+                      _notLast={{
+                        borderBottom: '1px solid',
+                        borderBottomColor: 'myWhite.700',
+                        mb: 2
+                      }}
+                      pb={2}
+                    >
+                      <Box fontWeight={'bold'}>{item.role}</Box>
+                      <Box whiteSpace={'pre-wrap'}>{item.text}</Box>
+                    </Box>
+                  )
+                )}
+              </Box>
+            ) : (
+              ''
+            )
+          }
+        />
+        <Row
+          label={'Audio Generation'}
+          rawDom={
+            activeModule?.audioResult?.length ? (
+              <Box px={3} py={2} border={'base'} borderRadius={'md'}>
+                {activeModule?.audioResult?.map((item, i) => (
+                  <Box
+                    key={i}
+                    _notLast={{
+                      borderBottom: '1px solid',
+                      borderBottomColor: 'myWhite.700',
+                      mb: 2
+                    }}
+                    pb={2}
+                  >
+                    <Box fontWeight={'bold'}>{item.role}</Box>
+                    <Box whiteSpace={'pre-wrap'} mb={2}>
+                      {item.text}
+                    </Box>
+                    <Button
+                      size="sm"
+                      leftIcon={<MyIcon name="play" />}
+                      onClick={() => {
+                        const audio = new Audio(item.audioUrl);
+                        audio.play();
+                      }}
+                    >
+                      Play
+                    </Button>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              ''
+            )
+          }
+        />
+        <Row
+          label={'Image Generation'}
+          rawDom={
+            activeModule?.imageResult?.length ? (
+              <Box px={3} py={2} border={'base'} borderRadius={'md'}>
+                {activeModule?.imageResult?.map((item, i) => (
+                  <Box
+                    key={i}
+                    _notLast={{
+                      borderBottom: '1px solid',
+                      borderBottomColor: 'myWhite.700',
+                      mb: 2
+                    }}
+                    pb={2}
+                  >
+                    <Box fontWeight={'bold'}>{item.role}</Box>
+                    <Box whiteSpace={'pre-wrap'} mb={2}>
+                      {item.text}
+                    </Box>
+
+                    <Button
+                      size="sm"
+                      leftIcon={<MyIcon name="view" />}
+                      onClick={async () => {
+                        try {
+                          const response = await fetch(item.imageUrl);
+                          const data = await response.json();
+                          const imageName = data.image;
+                          const imageUrl = `http://localhost:8111/load_image?path=${imageName}`;
+                          const modal = document.createElement('div');
+                          modal.style.position = 'fixed';
+                          modal.style.top = '0';
+                          modal.style.left = '0';
+                          modal.style.width = '100%';
+                          modal.style.height = '100%';
+                          modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                          modal.style.display = 'flex';
+                          modal.style.justifyContent = 'center';
+                          modal.style.alignItems = 'center';
+                          modal.style.zIndex = '9999';
+
+                          const img = document.createElement('img');
+                          img.src = imageUrl;
+                          img.style.maxWidth = '90%';
+                          img.style.maxHeight = '90%';
+                          img.style.objectFit = 'contain';
+
+                          modal.onclick = () => {
+                            document.body.removeChild(modal);
+                          };
+
+                          modal.appendChild(img);
+                          document.body.appendChild(modal);
+                        } catch (error) {
+                          console.error('Error fetching image:', error);
+                        }
+                      }}
+                    >
+                      View
+                    </Button>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              ''
+            )
+          }
+        />
       </>
       {/* ai chat */}
       <>

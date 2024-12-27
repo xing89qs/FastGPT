@@ -9,9 +9,12 @@ import {
   Th,
   Td,
   TableContainer,
-  Flex
+  Flex,
+  HStack,
+  Input,
+  Select
 } from '@chakra-ui/react';
-import { NodeProps } from 'reactflow';
+import { NodeProps, Position, Handle as SourceHandle } from 'reactflow';
 import { FlowNodeItemType } from '@fastgpt/global/core/workflow/type/node.d';
 import { useTranslation } from 'next-i18next';
 import NodeCard from '../render/NodeCard';
@@ -34,9 +37,11 @@ import { getNanoid } from '@fastgpt/global/common/string/tools';
 import IOTitle from '../../components/IOTitle';
 import { useContextSelector } from 'use-context-selector';
 import { WorkflowContext } from '../../../context';
+import MyTooltip from '@fastgpt/web/components/common/MyTooltip';
 import MyIconButton from '@fastgpt/web/components/common/Icon/button';
+import { getHandleId } from '@fastgpt/global/core/workflow/utils';
 
-const NodeExtract = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
+const NodeStoryCreation = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
   const { inputs, outputs, nodeId } = data;
 
   const { t } = useTranslation();
@@ -48,107 +53,238 @@ const NodeExtract = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
 
   const CustomComponent = useMemo(
     () => ({
-      [NodeInputKeyEnum.extractKeys]: ({
-        value: extractKeys = [],
+      [NodeInputKeyEnum.storyContextDialogs]: ({
+        key: dialogKey,
+        value = [],
         ...props
-      }: Omit<FlowNodeInputItemType, 'value'> & {
-        value?: ContextExtractAgentItemType[];
-      }) => (
-        <Box mt={-2}>
-          <Flex alignItems={'center'}>
-            <Box flex={'1 0 0'} fontSize={'sm'} fontWeight={'medium'} color={'myGray.600'}>
-              {t('common:core.module.extract.Target field')}
-            </Box>
-            <Button
-              size={'sm'}
-              variant={'grayGhost'}
-              px={2}
-              color={'myGray.600'}
-              leftIcon={<AddIcon fontSize={'10px'} />}
-              onClick={() => setEditExtractField(defaultField)}
-            >
-              {t('common:core.module.extract.Add field')}
-            </Button>
-          </Flex>
-
-          <TableContainer borderRadius={'md'} overflow={'hidden'} borderWidth={'1px'} mt={2}>
-            <Table variant={'workflow'}>
-              <Thead>
-                <Tr>
-                  <Th>{t('common:item_name')}</Th>
-                  <Th>{t('common:item_description')}</Th>
-                  <Th>{t('common:required')}</Th>
-                  <Th></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {extractKeys.map((item, index) => (
-                  <Tr key={index}>
-                    <Td>
-                      <Flex alignItems={'center'}>
-                        <MyIcon name={'checkCircle'} w={'14px'} mr={1} color={'myGray.600'} />
-                        {item.key}
-                      </Flex>
-                    </Td>
-                    <Td>{item.desc}</Td>
-                    <Td>
-                      {item.required ? (
-                        <Flex alignItems={'center'}>
-                          <MyIcon name={'check'} w={'16px'} color={'myGray.900'} mr={2} />
-                        </Flex>
-                      ) : (
-                        ''
-                      )}
-                    </Td>
-                    <Td>
-                      <Flex>
-                        <MyIconButton
-                          icon={'common/settingLight'}
-                          onClick={() => {
-                            setEditExtractField(item);
-                          }}
-                        />
-                        <MyIconButton
-                          icon={'delete'}
-                          hoverColor={'red.500'}
-                          onClick={() => {
-                            onChangeNode({
-                              nodeId,
-                              type: 'updateInput',
-                              key: NodeInputKeyEnum.extractKeys,
-                              value: {
-                                ...props,
-                                value: extractKeys.filter((extract) => item.key !== extract.key)
+      }: FlowNodeInputItemType) => {
+        const dialogs = value as { role: string; text: string }[];
+        return (
+          <Box>
+            {dialogs.map((item, i) => (
+              <Box key={item.role} mb={4}>
+                <HStack spacing={1}>
+                  <MyTooltip label={t('common:common.Delete')}>
+                    <MyIcon
+                      mt={0.5}
+                      name={'minus'}
+                      w={'0.8rem'}
+                      cursor={'pointer'}
+                      color={'myGray.600'}
+                      _hover={{ color: 'red.600' }}
+                      onClick={() => {
+                        onChangeNode({
+                          nodeId,
+                          type: 'updateInput',
+                          key: dialogKey,
+                          value: {
+                            ...props,
+                            key: dialogKey,
+                            value: dialogs.filter((dialog) => dialog.role !== item.role)
+                          }
+                        });
+                      }}
+                    />
+                  </MyTooltip>
+                  <Box color={'myGray.600'} fontWeight={'medium'} fontSize={'sm'}>
+                    {t('common:dialog') + '-' + (i + 1)}
+                  </Box>
+                </HStack>
+                <Box mt={1}>
+                  <HStack alignItems="center" mb={2}>
+                    <Box width="60px" fontSize="sm" color="myGray.600">
+                      Role
+                    </Box>
+                    <Input
+                      defaultValue={item.role}
+                      placeholder="Role"
+                      bg={'white'}
+                      fontSize={'sm'}
+                      onChange={(e) => {
+                        const newVal = dialogs.map((val) =>
+                          val.role === item.role
+                            ? {
+                                ...val,
+                                role: e.target.value
                               }
-                            });
-
-                            onChangeNode({
-                              nodeId,
-                              type: 'delOutput',
-                              key: item.key
-                            });
-                          }}
-                        />
-                      </Flex>
-                    </Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Box>
-      )
+                            : val
+                        );
+                        onChangeNode({
+                          nodeId,
+                          type: 'updateInput',
+                          key: dialogKey,
+                          value: {
+                            ...props,
+                            key: dialogKey,
+                            value: newVal
+                          }
+                        });
+                      }}
+                    />
+                  </HStack>
+                  <HStack alignItems="center">
+                    <Box width="60px" fontSize="sm" color="myGray.600">
+                      Text
+                    </Box>
+                    <Input
+                      defaultValue={item.text}
+                      placeholder="Content"
+                      bg={'white'}
+                      fontSize={'sm'}
+                      onChange={(e) => {
+                        const newVal = dialogs.map((val) =>
+                          val.role === item.role
+                            ? {
+                                ...val,
+                                text: e.target.value
+                              }
+                            : val
+                        );
+                        onChangeNode({
+                          nodeId,
+                          type: 'updateInput',
+                          key: dialogKey,
+                          value: {
+                            ...props,
+                            key: dialogKey,
+                            value: newVal
+                          }
+                        });
+                      }}
+                    />
+                  </HStack>
+                </Box>
+              </Box>
+            ))}
+            <Button
+              fontSize={'sm'}
+              leftIcon={<MyIcon name={'common/addLight'} w={4} />}
+              onClick={() => {
+                onChangeNode({
+                  nodeId,
+                  type: 'updateInput',
+                  key: dialogKey,
+                  value: {
+                    ...props,
+                    key: dialogKey,
+                    value: dialogs.concat([{ role: '', text: '' }])
+                  }
+                });
+              }}
+            >
+              {t('common:core.module.Add_dialog')}
+            </Button>
+          </Box>
+        );
+      },
+      [NodeInputKeyEnum.storyChoices]: ({
+        key: optionKey,
+        value = [],
+        ...props
+      }: FlowNodeInputItemType) => {
+        const options = value as string[];
+        return (
+          <Box>
+            {options.map((item, i) => (
+              <Box key={i} mb={4}>
+                <HStack spacing={1}>
+                  <MyTooltip label={t('common:common.Delete')}>
+                    <MyIcon
+                      mt={0.5}
+                      name={'minus'}
+                      w={'0.8rem'}
+                      cursor={'pointer'}
+                      color={'myGray.600'}
+                      _hover={{ color: 'red.600' }}
+                      onClick={() => {
+                        onChangeNode({
+                          nodeId,
+                          type: 'updateInput',
+                          key: optionKey,
+                          value: {
+                            ...props,
+                            key: optionKey,
+                            value: options.filter((_, index) => index !== i)
+                          }
+                        });
+                      }}
+                    />
+                  </MyTooltip>
+                  <Box color={'myGray.600'} fontWeight={'medium'} fontSize={'sm'}>
+                    {t('common:option') + (i + 1)}
+                  </Box>
+                </HStack>
+                <Box position={'relative'} mt={1}>
+                  <Input
+                    as="textarea"
+                    defaultValue={item}
+                    bg={'white'}
+                    fontSize={'sm'}
+                    padding={'8px 12px'}
+                    resize={'vertical'}
+                    minH={'40px'}
+                    overflow={'hidden'}
+                    sx={{
+                      '&::-webkit-scrollbar': {
+                        display: 'none'
+                      }
+                    }}
+                    onChange={(e) => {
+                      const newVal = options.map((val, index) =>
+                        index === i ? e.target.value : val
+                      );
+                      onChangeNode({
+                        nodeId,
+                        type: 'updateInput',
+                        key: optionKey,
+                        value: {
+                          ...props,
+                          key: optionKey,
+                          value: newVal
+                        }
+                      });
+                    }}
+                  />
+                  <SourceHandle
+                    nodeId={nodeId}
+                    handleId={getHandleId(nodeId, 'source', `option${i}`)}
+                    position={Position.Right}
+                    translate={[34, 0]}
+                  />
+                </Box>
+              </Box>
+            ))}
+            <Button
+              fontSize={'sm'}
+              leftIcon={<MyIcon name={'common/addLight'} w={4} />}
+              onClick={() => {
+                onChangeNode({
+                  nodeId,
+                  type: 'updateInput',
+                  key: optionKey,
+                  value: {
+                    ...props,
+                    key: optionKey,
+                    value: options.concat([''])
+                  }
+                });
+              }}
+            >
+              {t('common:core.module.Add_choices')}
+            </Button>
+          </Box>
+        );
+      }
     }),
     [nodeId, onChangeNode, t]
   );
-
   return (
-    <NodeCard minW={'400px'} selected={selected} {...data}>
+    <Box as={NodeCard} minW={'400px'} selected={selected} {...data}>
       {isTool && (
         <>
-          <Container>
-            <RenderToolInput nodeId={nodeId} inputs={inputs} />
-          </Container>
+          <Box as={Container}>
+            <Box as={RenderToolInput} nodeId={nodeId} inputs={inputs} />
+          </Box>
         </>
       )}
       <>
@@ -239,8 +375,8 @@ const NodeExtract = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
           }}
         />
       )}
-    </NodeCard>
+    </Box>
   );
 };
 
-export default React.memo(NodeExtract);
+export default React.memo(NodeStoryCreation);

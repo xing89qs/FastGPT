@@ -29,15 +29,14 @@ import { chatValue2RuntimePrompt } from '@fastgpt/global/core/chat/adapt';
 import { llmCompletionsBodyFormat } from '../../../ai/utils';
 
 type Props = ModuleDispatchProps<{
-  [NodeInputKeyEnum.history]?: ChatItemType[];
-  [NodeInputKeyEnum.contextExtractInput]: string;
-  [NodeInputKeyEnum.extractKeys]: ContextExtractAgentItemType[];
   [NodeInputKeyEnum.description]: string;
-  [NodeInputKeyEnum.aiModel]: string;
+  [NodeInputKeyEnum.storyContextDialogs]: { role: string; text: string }[];
+  [NodeInputKeyEnum.storyChoices]: string[];
 }>;
 type Response = DispatchNodeResultType<{
   [NodeOutputKeyEnum.success]: boolean;
-  [NodeOutputKeyEnum.contextExtractFields]: string;
+  [NodeOutputKeyEnum.storyCreation]: { text: string; role: string }[];
+  [NodeOutputKeyEnum.storyChoices]: string[];
 }>;
 
 type ActionProps = Props & { extractModel: LLMModelItemType };
@@ -49,345 +48,52 @@ export async function dispatchStoryCreation(props: Props): Promise<Response> {
     user,
     node: { name },
     histories,
-    params: { content, history = 6, model, description, extractKeys }
+    params: { description, storyContextDialogs, storyChoices }
   } = props;
 
-  if (!content) {
-    return Promise.reject('Input is empty');
+  if (!description) {
+    return Promise.reject('Background setting is empty');
   }
 
-  const extractModel = getLLMModel(model);
-  const chatHistories = getHistories(history, histories);
-
-  const { arg, tokens } = await (async () => {
-    if (extractModel.toolChoice) {
-      return toolChoice({
-        ...props,
-        histories: chatHistories,
-        extractModel
-      });
-    }
-    if (extractModel.functionCall) {
-      return functionCall({
-        ...props,
-        histories: chatHistories,
-        extractModel
-      });
-    }
-    return completions({
-      ...props,
-      histories: chatHistories,
-      extractModel
+  // Make HTTP request to story creation API
+  try {
+    const response = await fetch('http://localhost:8111/get_talk_default', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prefix: '',
+        choice: '',
+        article_setting: description
+      })
     });
-  })();
 
-  // remove invalid key
-  for (let key in arg) {
-    const item = extractKeys.find((item) => item.key === key);
-    if (!item) {
-      delete arg[key];
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
     }
-    if (arg[key] === '') {
-      delete arg[key];
-    }
-  }
 
-  // auto fill required fields
-  extractKeys.forEach((item) => {
-    if (item.required && !arg[item.key]) {
-      arg[item.key] = item.defaultValue || '';
-    }
-  });
+    const data = await response.json();
+    // Convert API response to expected format
+    const storyCreation = data.output.map((entry: { txt: string; character: string }) => ({
+      text: entry.txt,
+      role: entry.character
+    }));
+    console.log('storyCreation', storyCreation);
+    console.log('data.choices---', data.choice);
 
-  // auth fields
-  let success = !extractKeys.find((item) => !(item.key in arg));
-  // auth empty value
-  if (success) {
-    for (const key in arg) {
-      const item = extractKeys.find((item) => item.key === key);
-      if (!item) {
-        success = false;
-        break;
+    return {
+      [NodeOutputKeyEnum.success]: true,
+      [NodeOutputKeyEnum.storyCreation]: storyCreation,
+      [NodeOutputKeyEnum.storyChoices]: data.choice,
+      [DispatchNodeResponseKeyEnum.nodeResponse]: {
+        storyCreation: storyCreation,
+        storyChoices: data.choice
       }
-    }
+    };
+  } catch (error) {
+    console.error('Story creation API error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error('Failed to create story: ' + errorMessage);
   }
-
-  const { totalPoints, modelName } = formatModelChars2Points({
-    model: extractModel.model,
-    tokens,
-    modelType: ModelTypeEnum.llm
-  });
-
-  return {
-    [NodeOutputKeyEnum.success]: success,
-    [NodeOutputKeyEnum.contextExtractFields]: JSON.stringify(arg),
-    ...arg,
-    [DispatchNodeResponseKeyEnum.nodeResponse]: {
-      totalPoints: user.openaiAccount?.key ? 0 : totalPoints,
-      model: modelName,
-      query: content,
-      tokens,
-      extractDescription: description,
-      extractResult: arg,
-      contextTotalLen: chatHistories.length + 2
-    },
-    [DispatchNodeResponseKeyEnum.nodeDispatchUsages]: [
-      {
-        moduleName: name,
-        totalPoints: user.openaiAccount?.key ? 0 : totalPoints,
-        model: modelName,
-        tokens
-      }
-    ]
-  };
 }
-
-const getFunctionCallSchema = async ({
-  extractModel,
-  histories,
-  params: { content, extractKeys, description }
-}: ActionProps) => {
-  const messages: ChatItemType[] = [
-    ...histories,
-    {
-      obj: ChatRoleEnum.Human,
-      value: [
-        {
-          type: ChatItemValueTypeEnum.text,
-          text: {
-            content: `我正在执行一个函数，需要你提供一些参数，请以 JSON 字符串格式返回这些参数，要求：
-"""
-${description ? `- ${description}` : ''}
-- 不是每个参数都是必须生成的，如果没有合适的参数值，不要生成该参数，或返回空字符串。
-- 需要结合前面的对话内容，一起生成合适的参数。
-"""
-
-本次输入内容: """${content}"""
-            `
-          }
-        }
-      ]
-    }
-  ];
-  const adaptMessages = chats2GPTMessages({ messages, reserveId: false });
-  const filterMessages = await filterGPTMessageByMaxTokens({
-    messages: adaptMessages,
-    maxTokens: extractModel.maxContext
-  });
-  const requestMessages = await loadRequestMessages({
-    messages: filterMessages,
-    useVision: false
-  });
-
-  const properties: Record<
-    string,
-    {
-      type: string;
-      description: string;
-    }
-  > = {};
-  extractKeys.forEach((item) => {
-    properties[item.key] = {
-      type: item.valueType || 'string',
-      description: item.desc,
-      ...(item.enum ? { enum: item.enum.split('\n') } : {})
-    };
-  });
-  // function body
-  const agentFunction = {
-    name: agentFunName,
-    description: '需要执行的函数',
-    parameters: {
-      type: 'object',
-      properties,
-      required: []
-    }
-  };
-
-  return {
-    filterMessages: requestMessages,
-    agentFunction
-  };
-};
-
-const toolChoice = async (props: ActionProps) => {
-  const { user, extractModel } = props;
-
-  const { filterMessages, agentFunction } = await getFunctionCallSchema(props);
-
-  const tools: ChatCompletionTool[] = [
-    {
-      type: 'function',
-      function: agentFunction
-    }
-  ];
-
-  const { response } = await createChatCompletion({
-    body: llmCompletionsBodyFormat(
-      {
-        model: extractModel.model,
-        temperature: 0.01,
-        messages: filterMessages,
-        tools,
-        tool_choice: { type: 'function', function: { name: agentFunName } }
-      },
-      extractModel
-    ),
-    userKey: user.openaiAccount
-  });
-
-  const arg: Record<string, any> = (() => {
-    try {
-      return json5.parse(
-        response?.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments || ''
-      );
-    } catch (error) {
-      console.log(agentFunction.parameters);
-      console.log(response.choices?.[0]?.message?.tool_calls?.[0]?.function);
-      console.log('Your model may not support tool_call', error);
-      return {};
-    }
-  })();
-
-  const completeMessages: ChatCompletionMessageParam[] = [
-    ...filterMessages,
-    {
-      role: ChatCompletionRequestMessageRoleEnum.Assistant,
-      tool_calls: response.choices?.[0]?.message?.tool_calls
-    }
-  ];
-  return {
-    tokens: await countGptMessagesTokens(completeMessages, tools),
-    arg
-  };
-};
-
-const functionCall = async (props: ActionProps) => {
-  const { user, extractModel } = props;
-
-  const { agentFunction, filterMessages } = await getFunctionCallSchema(props);
-  const functions: ChatCompletionCreateParams.Function[] = [agentFunction];
-
-  const { response } = await createChatCompletion({
-    body: llmCompletionsBodyFormat(
-      {
-        model: extractModel.model,
-        temperature: 0.01,
-        messages: filterMessages,
-        function_call: {
-          name: agentFunName
-        },
-        functions
-      },
-      extractModel
-    ),
-    userKey: user.openaiAccount
-  });
-
-  try {
-    const arg = JSON.parse(response?.choices?.[0]?.message?.function_call?.arguments || '');
-    const completeMessages: ChatCompletionMessageParam[] = [
-      ...filterMessages,
-      {
-        role: ChatCompletionRequestMessageRoleEnum.Assistant,
-        function_call: response.choices?.[0]?.message?.function_call
-      }
-    ];
-
-    return {
-      arg,
-      tokens: await countGptMessagesTokens(completeMessages, undefined, functions)
-    };
-  } catch (error) {
-    console.log(response.choices?.[0]?.message);
-
-    console.log('Your model may not support toll_call', error);
-
-    return {
-      arg: {},
-      tokens: 0
-    };
-  }
-};
-
-const completions = async ({
-  extractModel,
-  user,
-  histories,
-  params: { content, extractKeys, description = 'No special requirements' }
-}: ActionProps) => {
-  const messages: ChatItemType[] = [
-    {
-      obj: ChatRoleEnum.Human,
-      value: [
-        {
-          type: ChatItemValueTypeEnum.text,
-          text: {
-            content: replaceVariable(extractModel.customExtractPrompt || Prompt_ExtractJson, {
-              description,
-              json: extractKeys
-                .map((item) => {
-                  const valueType = item.valueType || 'string';
-                  if (valueType !== 'string' && valueType !== 'number') {
-                    item.enum = undefined;
-                  }
-
-                  return `{"type":${item.valueType || 'string'}, "key":"${item.key}", "description":"${item.desc}" ${
-                    item.enum ? `, "enum":"[${item.enum.split('\n')}]"` : ''
-                  }}`;
-                })
-                .join('\n'),
-              text: `${histories.map((item) => `${item.obj}:${chatValue2RuntimePrompt(item.value).text}`).join('\n')}
-Human: ${content}`
-            })
-          }
-        }
-      ]
-    }
-  ];
-  const requestMessages = await loadRequestMessages({
-    messages: chats2GPTMessages({ messages, reserveId: false }),
-    useVision: false
-  });
-
-  const { response: data } = await createChatCompletion({
-    body: llmCompletionsBodyFormat(
-      {
-        model: extractModel.model,
-        temperature: 0.01,
-        messages: requestMessages,
-        stream: false
-      },
-      extractModel
-    ),
-    userKey: user.openaiAccount
-  });
-  const answer = data.choices?.[0].message?.content || '';
-
-  // parse response
-  const jsonStr = sliceJsonStr(answer);
-
-  if (!jsonStr) {
-    return {
-      rawResponse: answer,
-      tokens: await countMessagesTokens(messages),
-      arg: {}
-    };
-  }
-
-  try {
-    return {
-      rawResponse: answer,
-      tokens: await countMessagesTokens(messages),
-      arg: json5.parse(jsonStr) as Record<string, any>
-    };
-  } catch (error) {
-    console.log('Extract error, ai answer:', answer);
-    console.log(error);
-    return {
-      rawResponse: answer,
-      tokens: await countMessagesTokens(messages),
-      arg: {}
-    };
-  }
-};
