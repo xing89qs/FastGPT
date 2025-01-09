@@ -88,6 +88,9 @@ export default function VariableLabelPickerPlugin({
           ? ReactDOM.createPortal(
               <Box
                 bg={'white'}
+                _dark={{
+                  bg: 'gray.800'
+                }}
                 boxShadow={'lg'}
                 border={'base'}
                 p={1.5}

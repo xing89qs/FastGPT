@@ -15,18 +15,18 @@ import { i18nT } from '../../../../../../web/i18n/utils';
 import { Input_Template_UserChatInput } from '../../input';
 import { LLMModelTypeEnum } from '../../../../ai/constants';
 
-export const ImageGenerationModule: FlowNodeTemplateType = {
-  id: FlowNodeTypeEnum.imageGeneration,
+export const VideoGenerationModule: FlowNodeTemplateType = {
+  id: FlowNodeTypeEnum.videoGeneration,
   templateType: FlowNodeTemplateTypeEnum.game,
-  flowNodeType: FlowNodeTypeEnum.imageGeneration,
+  flowNodeType: FlowNodeTypeEnum.videoGeneration,
   sourceHandle: getHandleConfig(false, true, false, false),
   targetHandle: getHandleConfig(false, false, false, true),
-  avatar: 'core/workflow/template/imageGeneration',
-  name: 'imageGeneration',
-  intro: 'imageGeneration',
+  avatar: 'core/workflow/template/videoGeneration',
+  name: 'videoGeneration',
+  intro: 'videoGeneration',
   showStatus: true,
   isTool: true,
-  courseUrl: '/docs/guide/workbench/workflow/image_generation/',
+  courseUrl: '/docs/guide/workbench/workflow/video_generation/',
   version: '481',
   inputs: [
     {

@@ -324,7 +324,77 @@ export const WholeResponseContent = ({
             )
           }
         />
+        <Row
+          label={'Video Generation'}
+          rawDom={
+            activeModule?.videoResult?.length ? (
+              <Box px={3} py={2} border={'base'} borderRadius={'md'}>
+                {activeModule?.videoResult?.map((item, i) => (
+                  <Box
+                    key={i}
+                    _notLast={{
+                      borderBottom: '1px solid',
+                      borderBottomColor: 'myWhite.700',
+                      mb: 2
+                    }}
+                    pb={2}
+                  >
+                    <Box fontWeight={'bold'}>{item.role}</Box>
+                    <Box whiteSpace={'pre-wrap'} mb={2}>
+                      {item.text}
+                    </Box>
+
+                    <Button
+                      size="sm"
+                      leftIcon={<MyIcon name="view" />}
+                      onClick={async () => {
+                        try {
+                          const response = await fetch(item.videoUrl);
+                          const data = await response.json();
+                          const videoName = data.video;
+                          const videoUrl = `http://localhost:8111/load_video?path=${videoName}`;
+                          const modal = document.createElement('div');
+                          modal.style.position = 'fixed';
+                          modal.style.top = '0';
+                          modal.style.left = '0';
+                          modal.style.width = '100%';
+                          modal.style.height = '100%';
+                          modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                          modal.style.display = 'flex';
+                          modal.style.justifyContent = 'center';
+                          modal.style.alignItems = 'center';
+                          modal.style.zIndex = '9999';
+
+                          const video = document.createElement('video');
+                          video.src = videoUrl;
+                          video.controls = true;
+                          video.style.maxWidth = '90%';
+                          video.style.maxHeight = '90%';
+                          video.style.objectFit = 'contain';
+
+                          modal.onclick = () => {
+                            document.body.removeChild(modal);
+                          };
+
+                          modal.appendChild(video);
+                          document.body.appendChild(modal);
+                        } catch (error) {
+                          console.error('Error fetching video:', error);
+                        }
+                      }}
+                    >
+                      View
+                    </Button>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              ''
+            )
+          }
+        />
       </>
+
       {/* ai chat */}
       <>
         <Row
@@ -473,7 +543,10 @@ export const WholeResponseContent = ({
                 {activeModule?.readFiles.map((file, i) => (
                   <HStack
                     key={i}
-                    bg={'white'}
+                    bg={'myGray.50'}
+                    _dark={{
+                      bg: 'myGray.800'
+                    }}
                     boxShadow={'base'}
                     borderRadius={'sm'}
                     py={1}

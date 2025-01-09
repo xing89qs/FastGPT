@@ -98,6 +98,9 @@ export const VariableInputItem = ({
               min={item.min}
               max={item.max}
               bg={'white'}
+              _dark={{
+                bg: 'gray.700'
+              }}
               value={value}
               onChange={onChange}
             />
@@ -142,6 +145,9 @@ const VariableInput = ({
           w={'400px'}
           {...MessageCardStyle}
           bg={'white'}
+          _dark={{
+            bg: 'myGray.800'
+          }}
           boxShadow={'0 0 8px rgba(0,0,0,0.15)'}
         >
           {variableList.map((item) => (

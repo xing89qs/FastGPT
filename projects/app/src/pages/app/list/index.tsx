@@ -104,6 +104,9 @@ const MyApps = () => {
           maxLength={30}
           pl={8}
           bg={'white'}
+          _dark={{
+            bg: 'gray.800'
+          }}
         />
       </InputGroup>
     ),
@@ -189,6 +192,16 @@ const MyApps = () => {
                 fontSize={'14px'}
                 fontWeight={'medium'}
                 bg={'white'}
+                color={'myGray.900'}
+                _dark={{
+                  bg: 'gray.700',
+                  color: 'white',
+                  borderColor: 'gray.600',
+                  _hover: {
+                    bg: 'primary.900',
+                    color: 'primary.100'
+                  }
+                }}
                 rounded={'sm'}
                 cursor={'pointer'}
                 boxShadow={

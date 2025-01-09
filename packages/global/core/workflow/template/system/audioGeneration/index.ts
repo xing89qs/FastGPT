@@ -19,7 +19,7 @@ export const AudioGenerationModule: FlowNodeTemplateType = {
   id: FlowNodeTypeEnum.audioGeneration,
   templateType: FlowNodeTemplateTypeEnum.game,
   flowNodeType: FlowNodeTypeEnum.audioGeneration,
-  sourceHandle: getHandleConfig(false, false, false, false),
+  sourceHandle: getHandleConfig(false, true, false, false),
   targetHandle: getHandleConfig(false, false, false, true),
   avatar: 'core/workflow/template/audioGeneration',
   name: 'audioGeneration',

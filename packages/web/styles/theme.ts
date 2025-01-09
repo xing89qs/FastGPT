@@ -8,7 +8,7 @@ import {
   tableAnatomy,
   radioAnatomy
 } from '@chakra-ui/anatomy';
-import { createMultiStyleConfigHelpers, defineStyle } from '@chakra-ui/styled-system';
+import { color, createMultiStyleConfigHelpers, defineStyle } from '@chakra-ui/styled-system';
 
 const { definePartsStyle: modalPart, defineMultiStyleConfig: modalMultiStyle } =
   createMultiStyleConfigHelpers(modalAnatomy.keys);
@@ -123,36 +123,55 @@ const Button = defineStyleConfig({
       bg: 'primary.600',
       color: 'white',
       border: 'none',
-      boxShadow: '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 1px 2px 0px rgba(19, 51, 107, 0.05)',
+      boxShadow: '0px 0px 1px 0px rgba(0, 0, 0, 0.25), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)',
       _hover: {
         filter: 'brightness(120%)'
       },
       _disabled: {
-        bg: 'primary.7 !important'
+        bg: 'gray.600 !important',
+        _dark: {
+          bg: 'gray.700 !important'
+        }
+      },
+      _dark: {
+        bg: 'primary.500',
+        boxShadow:
+          '0px 0px 1px 0px rgba(255, 255, 255, 0.25), 0px 1px 2px 0px rgba(255, 255, 255, 0.2)'
       }
     },
     primaryOutline: {
-      color: 'primary.600',
+      color: 'primary.300',
       border: '1px solid',
-      borderColor: 'primary.300',
-      bg: 'white',
+      borderColor: 'primary.600',
+      bg: 'gray.100',
       transition: 'background 0.1s',
       boxShadow: '1',
       _hover: {
-        bg: 'primary.1'
+        bg: 'gray.200'
       },
       _active: {
-        color: 'primary.600'
+        color: 'primary.300'
       },
       _disabled: {
-        bg: 'white !important'
+        bg: 'gray.100 !important',
+        _dark: {
+          bg: 'gray.700 !important'
+        }
+      },
+      _dark: {
+        color: 'primary.200',
+        borderColor: 'primary.400',
+        bg: 'gray.700',
+        _hover: {
+          bg: 'gray.600'
+        }
       }
     },
     primaryGhost: {
-      color: 'primary.600',
+      color: 'primary.300',
       border: '1px solid',
-      borderColor: 'primary.300',
-      bg: 'primary.50',
+      borderColor: 'primary.600',
+      bg: 'gray.100',
       transition: 'background 0.1s',
       boxShadow: '1',
       _hover: {
@@ -161,18 +180,33 @@ const Button = defineStyleConfig({
         borderColor: 'primary.600'
       },
       _disabled: {
-        color: 'primary.600 !important',
-        bg: 'primary.50 !important',
-        borderColor: 'primary.300 !important'
+        color: 'primary.300 !important',
+        bg: 'gray.100 !important',
+        borderColor: 'primary.600 !important',
+        _dark: {
+          color: 'primary.200 !important',
+          bg: 'gray.700 !important',
+          borderColor: 'primary.400 !important'
+        }
+      },
+      _dark: {
+        color: 'primary.200',
+        borderColor: 'primary.400',
+        bg: 'gray.700',
+        _hover: {
+          bg: 'primary.500',
+          color: 'white',
+          borderColor: 'primary.400'
+        }
       }
     },
     whiteBase: {
-      color: 'myGray.600',
+      color: 'myGray.900',
       border: '1px solid',
-      borderColor: 'myGray.250',
-      bg: 'white',
+      borderColor: 'myGray.300',
+      bg: 'myGray.50',
       transition: 'background 0.1s',
-      boxShadow: '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 1px 2px 0px rgba(19, 51, 107, 0.05)',
+      boxShadow: '0px 0px 1px 0px rgba(0, 0, 0, 0.25), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)',
       _hover: {
         color: 'primary.600'
       },
@@ -180,45 +214,46 @@ const Button = defineStyleConfig({
         color: 'primary.600'
       },
       _disabled: {
-        color: 'myGray.600 !important'
+        color: 'myGray.900 !important'
       }
     },
     whitePrimaryOutline: {
       border: '1px solid',
-      borderColor: 'myGray.250',
-      bg: 'white',
+      borderColor: 'gray.200',
+      bg: 'gray.800',
+      color: 'gray.100',
       transition: 'background 0.1s',
       _hover: {
         color: 'primary.600',
-        borderColor: 'primary.300'
+        borderColor: 'gray.100'
       }
     },
     whitePrimary: {
-      color: 'myGray.600',
+      color: 'myGray.900',
       border: '1px solid',
-      borderColor: 'myGray.250',
-      bg: 'white',
+      borderColor: 'myGray.300',
+      bg: 'myGray.50',
       transition: 'background 0.1s',
-      boxShadow: '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 1px 2px 0px rgba(19, 51, 107, 0.05)',
+      boxShadow: '0px 0px 1px 0px rgba(0, 0, 0, 0.25), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)',
       _hover: {
         color: 'primary.600',
-        background: 'primary.1',
+        background: 'myGray.100',
         borderColor: 'primary.300'
       },
       _active: {
         color: 'primary.600'
       },
       _disabled: {
-        color: 'myGray.600 !important'
+        color: 'myGray.900 !important'
       }
     },
     whiteDanger: {
-      color: 'myGray.600',
+      color: 'myGray.900',
       border: '1px solid',
-      borderColor: 'myGray.250',
-      bg: 'white',
+      borderColor: 'myGray.300',
+      bg: 'myGray.50',
       transition: 'background 0.1s',
-      boxShadow: '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 1px 2px 0px rgba(19, 51, 107, 0.05)',
+      boxShadow: '0px 0px 1px 0px rgba(0, 0, 0, 0.25), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)',
       _hover: {
         color: 'red.600',
         borderColor: 'red.300'
@@ -228,79 +263,85 @@ const Button = defineStyleConfig({
       }
     },
     grayBase: {
-      bg: 'myGray.150',
-      color: 'myGray.900',
+      bg: 'myGray.200',
+      color: 'myGray.700',
+      transition: 'background 0.1s',
       _hover: {
-        color: 'primary.600',
-        bg: 'primary.50'
+        color: 'primary.500',
+        bg: 'myGray.300'
+      },
+      _active: {
+        bg: 'myGray.300'
       },
       _disabled: {
-        bg: 'myGray.50 !important'
+        opacity: 0.4,
+        bg: 'myGray.100 !important',
+        cursor: 'not-allowed'
       }
     },
     grayDanger: {
-      bg: 'myGray.150',
-      color: 'myGray.900',
+      bg: 'gray.200',
+      color: 'gray.50',
       _hover: {
-        color: 'red.600',
-        background: 'red.1',
-        borderColor: 'red.300'
+        color: 'red.300',
+        background: 'red.900',
+        borderColor: 'red.600'
       },
       _active: {
-        color: 'red.600'
+        color: 'red.300'
       }
     },
     grayGhost: {
-      color: 'myGray.500',
+      color: 'gray.400',
       fontWeight: '500',
       p: 0,
       bg: 'transparent',
       transition: 'background 0.1s',
       _hover: {
-        bg: 'myGray.05'
+        bg: 'gray.200'
       }
     },
     transparentBase: {
-      color: 'myGray.800',
+      color: 'gray.100',
       fontWeight: '500',
       bg: 'transparent',
       transition: 'background 0.1s',
       _hover: {
-        bg: 'myGray.150'
+        bg: 'gray.200'
       },
       _active: {
-        bg: 'myGray.150'
+        bg: 'gray.200'
       },
       _disabled: {
-        color: 'myGray.800 !important'
+        color: 'gray.100 !important'
       }
     },
     transparentDanger: {
-      color: 'myGray.800',
+      color: 'gray.100',
       fontWeight: '500',
       bg: 'transparent',
       transition: 'background 0.1s',
       _hover: {
-        bg: 'myGray.150',
-        color: 'red.600'
+        bg: 'gray.200',
+        color: 'red.300'
       },
       _active: {
-        bg: 'myGray.150'
+        bg: 'gray.200'
       },
       _disabled: {
-        color: 'myGray.800 !important'
+        color: 'gray.100 !important'
       }
     },
     dangerFill: {
       bg: 'red.600',
       color: 'white',
       border: 'none',
-      boxShadow: '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 1px 2px 0px rgba(19, 51, 107, 0.05)',
+      boxShadow: '0px 0px 1px 0px rgba(0, 0, 0, 0.25), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)',
       _hover: {
         filter: 'brightness(120%)'
       },
       _disabled: {
-        bg: 'red.200 !important'
+        bg: 'red.800 !important'
       }
     }
   },
@@ -335,19 +376,24 @@ const Input: ComponentStyleConfig = {
     outline: {
       field: {
         border: '1px solid',
-        borderColor: 'borderColor.low',
+        borderColor: 'gray.300',
         px: 3,
+        bg: 'gray.50',
+        color: 'gray.900',
         _focus: {
-          borderColor: 'primary.500',
+          borderColor: 'primary.300',
           boxShadow: shadowLight,
-          bg: 'white'
+          bg: 'gray.100'
         },
         _hover: {
           borderColor: 'primary.300'
         },
         _disabled: {
-          color: 'myGray.400',
-          bg: 'myWhite.300'
+          color: 'gray.700',
+          bg: 'gray.100'
+        },
+        _placeholder: {
+          color: 'gray.500'
         }
       }
     }
@@ -378,27 +424,28 @@ const NumberInput = numInputMultiStyle({
   variants: {
     outline: numInputPart({
       field: {
-        bg: 'myGray.50',
+        bg: 'gray.50',
         border: '1px solid',
-        borderColor: 'myGray.200',
+        borderColor: 'gray.300',
+        color: 'gray.900',
         _focus: {
-          borderColor: 'primary.500 !important',
+          borderColor: 'primary.300 !important',
           boxShadow: `${shadowLight} !important`,
-          bg: 'white'
+          bg: 'gray.100'
         },
         _disabled: {
-          color: 'myGray.400 !important',
-          bg: 'myWhite.300 !important'
+          color: 'gray.700 !important',
+          bg: 'gray.100 !important'
         }
       },
       stepper: {
         bg: 'transparent',
-        color: 'myGray.600',
+        color: 'gray.600',
         _active: {
-          color: 'primary.500'
+          color: 'primary.600'
         },
         _hover: {
-          bg: 'myGray.100'
+          bg: 'gray.100'
         }
       }
     })
@@ -414,26 +461,23 @@ const Textarea: ComponentStyleConfig = {
       border: '1px solid',
       px: 3,
       borderRadius: 'md',
-      borderColor: 'myGray.200',
+      borderColor: 'gray.600',
+      bg: 'gray.100',
+      color: 'gray.900',
       fontSize: 'sm',
       _hover: {
-        borderColor: 'primary.300'
+        borderColor: 'primary.600'
       },
       _focus: {
         borderColor: 'primary.500',
         boxShadow: shadowLight,
-        bg: 'white'
+        bg: 'gray.200'
       },
-      '&::-webkit-resizer': {
-        background: "url('/icon/resizer.svg') no-repeat",
-        backgroundSize: '11px',
-        backgroundPosition: 'right bottom',
-        backgroundPositionX: 'right 12px',
-        backgroundPositionY: 'bottom 12px'
+      _placeholder: {
+        color: 'gray.600'
       }
     }
   },
-
   defaultProps: {
     size: 'md',
     variant: 'outline'
@@ -443,9 +487,9 @@ const Textarea: ComponentStyleConfig = {
 const Switch = switchMultiStyle({
   baseStyle: switchPart({
     track: {
-      bg: 'myGray.100',
+      bg: 'gray.200',
       borderWidth: '1px',
-      borderColor: 'borders.base',
+      borderColor: 'gray.600',
       _checked: {
         bg: 'primary.600'
       }
@@ -460,7 +504,9 @@ const Select = selectMultiStyle({
   variants: {
     outline: selectPart({
       field: {
-        borderColor: 'myGray.200',
+        borderColor: 'gray.600',
+        bg: 'gray.100',
+        color: 'gray.900',
         _focusWithin: {
           boxShadow: shadowLight,
           borderColor: 'primary.500'
@@ -474,27 +520,28 @@ const Radio = radioStyle({
   baseStyle: radioParts({
     control: {
       _hover: {
-        borderColor: 'primary.300',
-        bg: 'primary.50'
+        borderColor: 'primary.600',
+        bg: 'gray.200'
       },
       _checked: {
         borderColor: 'primary.600',
-        bg: 'primary.50',
+        bg: 'gray.200',
         boxShadow: shadowLight,
         _before: {
           bg: 'primary.600'
         },
         _hover: {
-          bg: 'primary.50'
+          bg: 'gray.200'
         }
       }
     }
   })
 });
+
 const Checkbox = checkBoxMultiStyle({
   baseStyle: checkBoxPart({
     label: {
-      fontFamily: 'mono', // change the font family of the label
+      fontFamily: 'mono',
       _disabled: {
         outline: 'none'
       }
@@ -503,23 +550,23 @@ const Checkbox = checkBoxMultiStyle({
       borderRadius: 'xs',
       bg: 'none',
       _checked: {
-        bg: 'primary.50',
+        bg: 'gray.200',
         borderColor: 'primary.600',
         borderWidth: '1px',
         color: 'primary.600',
         boxShadow: `${shadowLight} !important`,
         _hover: {
-          bg: 'primary.50'
+          bg: 'gray.200'
         },
         _disabled: {
-          bg: 'myGray.100',
+          bg: 'gray.200',
           borderColor: 'transparent',
-          color: 'myGray.400',
+          color: 'gray.500',
           outline: 'none'
         }
       },
       _hover: {
-        borderColor: 'primary.400'
+        borderColor: 'primary.500'
       }
     }
   })
@@ -559,7 +606,7 @@ const Table = tableMultiStyle({
       },
       thead: {
         tr: {
-          bg: 'myGray.100',
+          bg: 'gray.200',
           fontSize: 'sm',
           th: {
             borderBottom: 'none',
@@ -591,19 +638,20 @@ const Table = tableMultiStyle({
   variants: {
     workflow: {
       table: {
-        bg: 'white'
+        bg: 'gray.100'
       },
       thead: {
         tr: {
           th: {
             p: '0',
             px: 4,
-            bg: 'myGray.50',
+            bg: 'gray.200',
             borderRadius: 'none !important',
             borderBottom: 'none',
             height: '32px',
             fontSize: 'mini',
-            fontWeight: 'medium'
+            fontWeight: 'medium',
+            color: 'gray.900'
           }
         }
       },
@@ -614,7 +662,8 @@ const Table = tableMultiStyle({
             px: 4,
             fontSize: 'xs',
             borderBottom: 'base',
-            height: '40px'
+            height: '40px',
+            color: 'gray.900'
           },
           '&:last-child': {
             td: {
@@ -630,16 +679,66 @@ const Table = tableMultiStyle({
   }
 });
 
+const config = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false
+};
+const colors = {
+  primary: {
+    50: '#E6E8FF',
+    100: '#C5CAFF',
+    200: '#A4ABFF',
+    300: '#838DFF',
+    400: '#626EFF',
+    500: '#4150FF',
+    600: '#3440CC',
+    700: '#273099',
+    800: '#1A2066',
+    900: '#0D1033'
+  },
+  gray: {
+    50: '#1C2128',
+    100: '#22272E',
+    200: '#2D333B',
+    300: '#373E47',
+    400: '#444C56',
+    500: '#545D68',
+    600: '#768390',
+    700: '#909DAB',
+    800: '#ADBAC7',
+    900: '#CDD9E5'
+  },
+  borders: {
+    base: '1px solid var(--chakra-colors-gray-200)'
+  },
+  background: {
+    primary: '#0D1117',
+    secondary: '#161B22',
+    tertiary: '#22272E'
+  },
+  text: {
+    primary: '#CDD9E5',
+    secondary: '#768390',
+    accent: '#539BF5'
+  }
+};
+
 // 全局主题
 export const theme = extendTheme({
+  config,
   styles: {
     global: {
       'html, body': {
-        color: 'myGray.600',
+        color: 'gray.900',
         fontWeight: 'normal',
         height: '100%',
         overflow: 'hidden',
-        fontSize: '16px'
+        fontSize: '16px',
+        bg: 'gray.50'
+      },
+      body: {
+        bg: 'gray.50',
+        color: 'gray.900'
       },
       a: {
         color: 'primary.600'
@@ -654,135 +753,135 @@ export const theme = extendTheme({
   },
   colors: {
     myWhite: {
-      100: '#FEFEFE',
-      200: '#FDFDFE',
-      300: '#FBFBFC',
-      400: '#F8FAFB',
-      500: '#F6F8F9',
-      600: '#F4F6F8',
-      700: '#C3C5C6',
-      800: '#929495',
-      900: '#626263',
-      1000: '#313132'
+      100: '#1A1D21',
+      200: '#1E2227',
+      300: '#22272E',
+      400: '#2D333B',
+      500: '#373E47',
+      600: '#444C56',
+      700: '#545D68',
+      800: '#636E7B',
+      900: '#768390',
+      1000: '#8B96A4'
     },
     myGray: {
-      '05': 'rgba(17, 24, 36, 0.05)',
-      1: 'rgba(17, 24, 36, 0.1)',
-      15: 'rgba(17, 24, 36, 0.15)',
+      '05': 'rgba(205, 217, 229, 0.05)',
+      1: 'rgba(205, 217, 229, 0.1)',
+      15: 'rgba(205, 217, 229, 0.15)',
 
-      25: '#FBFBFC',
-      50: '#F7F8FA',
-      100: '#F4F4F7',
-      150: '#F0F1F6',
-      200: '#E8EBF0',
-      250: '#DFE2EA',
-      300: '#C4CBD7',
-      400: '#8A95A7',
-      500: '#667085',
-      600: '#485264',
-      700: '#383F50',
-      800: '#1D2532',
-      900: '#111824'
+      25: '#1A1D21',
+      50: '#22272E',
+      100: '#2D333B',
+      150: '#373E47',
+      200: '#444C56',
+      250: '#545D68',
+      300: '#636E7B',
+      400: '#768390',
+      500: '#8B96A4',
+      600: '#A1ACB8',
+      700: '#B7C2CD',
+      800: '#CDD9E5',
+      900: '#E4EBF0'
     },
     primary: {
-      1: 'rgba(51, 112, 255, 0.1)',
-      '015': 'rgba(51, 112, 255, 0.15)',
-      3: 'rgba(51, 112, 255, 0.3)',
-      5: 'rgba(51, 112, 255, 0.5)',
-      7: 'rgba(51, 112, 255, 0.7)',
-      9: 'rgba(51, 112, 255, 0.9)',
+      1: 'rgba(88, 166, 255, 0.1)',
+      '015': 'rgba(88, 166, 255, 0.15)',
+      3: 'rgba(88, 166, 255, 0.3)',
+      5: 'rgba(88, 166, 255, 0.5)',
+      7: 'rgba(88, 166, 255, 0.7)',
+      9: 'rgba(88, 166, 255, 0.9)',
 
-      50: '#F0F4FF',
-      100: '#E1EAFF',
-      200: '#C5D7FF',
-      300: '#94B5FF',
-      400: '#5E8FFF',
-      500: '#487FFF',
-      600: '#3370FF',
-      700: '#2B5FD9',
-      800: '#2450B5',
-      900: '#1D4091'
+      50: '#0D1117',
+      100: '#161B22',
+      200: '#21262D',
+      300: '#30363D',
+      400: '#2F81F7',
+      500: '#4184E4',
+      600: '#58A6FF',
+      700: '#79B8FF',
+      800: '#9ECBFF',
+      900: '#C9E3FF'
     },
     blue: {
-      1: 'rgba(51, 112, 255, 0.1)',
-      '015': 'rgba(51, 112, 255, 0.15)',
-      3: 'rgba(51, 112, 255, 0.3)',
-      5: 'rgba(51, 112, 255, 0.5)',
-      7: 'rgba(51, 112, 255, 0.7)',
-      9: 'rgba(51, 112, 255, 0.9)',
+      1: 'rgba(88, 166, 255, 0.1)',
+      '015': 'rgba(88, 166, 255, 0.15)',
+      3: 'rgba(88, 166, 255, 0.3)',
+      5: 'rgba(88, 166, 255, 0.5)',
+      7: 'rgba(88, 166, 255, 0.7)',
+      9: 'rgba(88, 166, 255, 0.9)',
 
-      50: '#F0F4FF',
-      100: '#E1EAFF',
-      200: '#C5D7FF',
-      300: '#94B5FF',
-      400: '#5E8FFF',
-      500: '#487FFF',
-      600: '#3370FF',
-      700: '#2B5FD9',
-      800: '#2450B5',
-      900: '#1D4091'
+      50: '#0D1117',
+      100: '#161B22',
+      200: '#21262D',
+      300: '#30363D',
+      400: '#2F81F7',
+      500: '#4184E4',
+      600: '#58A6FF',
+      700: '#79B8FF',
+      800: '#9ECBFF',
+      900: '#C9E3FF'
     },
     red: {
-      1: 'rgba(217,45,32,0.1)',
-      3: 'rgba(217,45,32,0.3)',
-      5: 'rgba(217,45,32,0.5)',
+      1: 'rgba(248, 81, 73, 0.1)',
+      3: 'rgba(248, 81, 73, 0.3)',
+      5: 'rgba(248, 81, 73, 0.5)',
 
-      25: '#FFFBFA',
-      50: '#FEF3F2',
-      100: '#FEE4E2',
-      200: '#FECDCA',
-      300: '#FDA29B',
-      400: '#F97066',
+      25: '#1C1717',
+      50: '#2D2121',
+      100: '#3D2B2B',
+      200: '#4E3636',
+      300: '#FA4B4B',
+      400: '#F85149',
       500: '#F04438',
-      600: '#D92D20',
-      700: '#B42318',
-      800: '#912018',
-      900: '#7A271A'
+      600: '#E5534B',
+      700: '#D95D55',
+      800: '#CC6B6B',
+      900: '#BF7A7A'
     },
     green: {
-      25: '#F9FEFB',
-      50: '#EDFBF3',
-      100: '#D1FADF',
-      200: '#B9F4D1',
-      300: '#76E4AA',
-      400: '#32D583',
-      500: '#12B76A',
-      600: '#039855',
-      700: '#027A48',
-      800: '#05603A',
-      900: '#054F31'
+      25: '#161B16',
+      50: '#1B211B',
+      100: '#238636',
+      200: '#2EA043',
+      300: '#3FB950',
+      400: '#56D364',
+      500: '#6FDD8B',
+      600: '#88E596',
+      700: '#A1EDB0',
+      800: '#BAF5CA',
+      900: '#D3FCE4'
     },
     yellow: {
-      25: '#FFFDFA',
-      50: '#FFFAEB',
-      100: '#FEF0C7',
-      200: '#FEDF89',
-      300: '#F5C149',
-      400: '#FDB022',
-      500: '#F79009',
-      600: '#DC6803',
-      700: '#B54708',
-      800: '#93370D',
-      900: '#7A2E0E'
+      25: '#1C1A16',
+      50: '#2B2516',
+      100: '#3B3016',
+      200: '#D29922',
+      300: '#E3B341',
+      400: '#F6C146',
+      500: '#FFCA5A',
+      600: '#FFD571',
+      700: '#FFE188',
+      800: '#FFECA0',
+      900: '#FFF6B7'
     },
     adora: {
-      25: '#FCFCFF',
-      50: '#F0EEFF',
-      100: '#E4E1FC',
-      200: '#D3CAFF',
-      300: '#B6A8FC',
-      400: '#9E8DFB',
-      500: '#8774EE',
-      600: '#6F5DD7',
-      700: '#5E4EBD',
-      800: '#4E4198',
-      900: '#42387D'
+      25: '#17171F',
+      50: '#1E1E2C',
+      100: '#252539',
+      200: '#2C2C46',
+      300: '#8B7FE6',
+      400: '#9D93E9',
+      500: '#AFA7EC',
+      600: '#C1BBEF',
+      700: '#D3CFF2',
+      800: '#E5E3F5',
+      900: '#F7F7F8'
     },
     borderColor: {
-      low: '#E8EBF0',
-      base: '#DFE2EA',
-      high: '#C4CBD7',
-      highest: '#8A95A7'
+      low: '#30363D',
+      base: '#373E47',
+      high: '#444C56',
+      highest: '#545D68'
     }
   },
   fonts: {
@@ -802,10 +901,10 @@ export const theme = extendTheme({
     '6xl': '3.6rem'
   },
   borders: {
-    sm: '1px solid #E8EBF0',
-    base: '1px solid #DFE2EA',
-    md: '1px solid #DAE0E2',
-    lg: '1px solid #D0E0E2'
+    sm: '1px solid #30363D',
+    base: '1px solid #373E47',
+    md: '1px solid #444C56',
+    lg: '1px solid #545D68'
   },
   radii: {
     none: '0',
@@ -817,15 +916,15 @@ export const theme = extendTheme({
     xl: '1rem'
   },
   shadows: {
-    1: '0px 1px 2px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)',
-    1.5: '0px 1px 2px 0px rgba(19, 51, 107, 0.10), 0px 0px 1px 0px rgba(19, 51, 107, 0.15)',
-    2: '0px 4px 4px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)',
-    3: '0px 4px 10px 0px rgba(19, 51, 107, 0.08), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)',
-    3.5: '0px 4px 10px 0px rgba(19, 51, 107, 0.10), 0px 0px 1px 0px rgba(19, 51, 107, 0.10)',
-    4: '0px 12px 16px -4px rgba(19, 51, 107, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
-    5: '0px 20px 24px -8px rgba(19, 51, 107, 0.15), 0px 0px 1px 0px rgba(19, 51, 107, 0.15)',
-    6: '0px 24px 48px -12px rgba(19, 51, 107, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
-    7: '0px 32px 64px -12px rgba(19, 51, 107, 0.20), 0px 0px 1px 0px rgba(19, 51, 107, 0.20)',
+    1: '0px 1px 2px 0px rgba(0, 0, 0, 0.25), 0px 0px 1px 0px rgba(0, 0, 0, 0.30)',
+    1.5: '0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 0px 1px 0px rgba(0, 0, 0, 0.35)',
+    2: '0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 0px 1px 0px rgba(0, 0, 0, 0.30)',
+    3: '0px 4px 10px 0px rgba(0, 0, 0, 0.30), 0px 0px 1px 0px rgba(0, 0, 0, 0.30)',
+    3.5: '0px 4px 10px 0px rgba(0, 0, 0, 0.35), 0px 0px 1px 0px rgba(0, 0, 0, 0.35)',
+    4: '0px 12px 16px -4px rgba(0, 0, 0, 0.40), 0px 0px 1px 0px rgba(0, 0, 0, 0.40)',
+    5: '0px 20px 24px -8px rgba(0, 0, 0, 0.35), 0px 0px 1px 0px rgba(0, 0, 0, 0.35)',
+    6: '0px 24px 48px -12px rgba(0, 0, 0, 0.40), 0px 0px 1px 0px rgba(0, 0, 0, 0.40)',
+    7: '0px 32px 64px -12px rgba(0, 0, 0, 0.40), 0px 0px 1px 0px rgba(0, 0, 0, 0.40)',
     focus: shadowLight,
     outline: 'none'
   },
@@ -837,10 +936,10 @@ export const theme = extendTheme({
     '2xl': '2100px'
   },
   lgColor: {
-    activeBlueGradient: 'linear-gradient(to bottom right, #d6e8ff 0%, #f0f7ff 100%)',
-    hoverBlueGradient: 'linear-gradient(to top left, #d6e8ff 0%, #f0f7ff 100%)',
-    primary: 'linear-gradient(to bottom right, #2152d9 0%,#3370ff 40%, #4e83fd 100%)',
-    primary2: 'linear-gradient(to bottom right, #2152d9 0%,#3370ff 30%,#4e83fd 80%, #85b1ff 100%)'
+    activeBlueGradient: 'linear-gradient(to bottom right, #1C2128 0%, #22272E 100%)',
+    hoverBlueGradient: 'linear-gradient(to top left, #1C2128 0%, #22272E 100%)',
+    primary: 'linear-gradient(to bottom right, #273099 0%, #4150FF 40%, #626EFF 100%)',
+    primary2: 'linear-gradient(to bottom right, #273099 0%, #4150FF 30%, #626EFF 80%, #838DFF 100%)'
   },
   components: {
     Button,

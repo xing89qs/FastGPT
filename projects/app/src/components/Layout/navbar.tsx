@@ -130,14 +130,22 @@ const Navbar = ({ unread }: { unread: number }) => {
               {...itemStyles}
               {...(isActive
                 ? {
-                    bg: 'white',
+                    bg: 'myGray.50',
                     boxShadow:
-                      '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 4px 4px 0px rgba(19, 51, 107, 0.05)'
+                      '0px 0px 1px 0px rgba(19, 51, 107, 0.08), 0px 4px 4px 0px rgba(19, 51, 107, 0.05)',
+                    _dark: {
+                      bg: 'myGray.100',
+                      boxShadow:
+                        '0px 0px 1px 0px rgba(255, 255, 255, 0.08), 0px 4px 4px 0px rgba(255, 255, 255, 0.05)'
+                    }
                   }
                 : {
                     bg: 'transparent',
                     _hover: {
-                      bg: isSecondNavbarPage ? 'white' : 'rgba(255,255,255,0.9)'
+                      bg: isSecondNavbarPage ? 'myGray.50' : 'myGray.1',
+                      _dark: {
+                        bg: isSecondNavbarPage ? 'myGray.100' : 'myGray.15'
+                      }
                     }
                   })}
               {...(item.link !== router.asPath

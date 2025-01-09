@@ -48,3 +48,5 @@ mongo/data/
 mysql/
 pg/data/
 oneapi/logs/
+
+projects/app/.env

@@ -40,6 +40,8 @@ const nodeTypes: Record<FlowNodeTypeEnum, any> = {
   [FlowNodeTypeEnum.audioGeneration]: dynamic(() => import('./nodes/NodeAudioGeneration')),
   [FlowNodeTypeEnum.httpRequest468]: dynamic(() => import('./nodes/NodeHttp')),
   [FlowNodeTypeEnum.imageGeneration]: dynamic(() => import('./nodes/NodeImageGeneration')),
+  [FlowNodeTypeEnum.videoGeneration]: dynamic(() => import('./nodes/NodeVideoGeneration')),
+  [FlowNodeTypeEnum.gameCreator]: dynamic(() => import('./nodes/NodeGame')),
   [FlowNodeTypeEnum.runApp]: NodeSimple,
   [FlowNodeTypeEnum.appModule]: NodeSimple,
   [FlowNodeTypeEnum.pluginInput]: dynamic(() => import('./nodes/NodePluginIO/PluginInput')),

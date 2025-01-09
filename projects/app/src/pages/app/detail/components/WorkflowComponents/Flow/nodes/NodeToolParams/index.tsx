@@ -60,16 +60,16 @@ const NodeToolParams = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
             border={'1px solid'}
             borderColor={'myGray.200'}
           >
-            <Table bg={'white'}>
+            <Table bg={'var(--chakra-colors-chakra-body-bg)'}>
               <Thead>
                 <Tr h={8}>
-                  <Th p={0} px={4} bg={'myGray.50'} borderBottomLeftRadius={'none !important'}>
+                  <Th p={0} px={4} bg={'blackAlpha.50'} borderBottomLeftRadius={'none !important'}>
                     {t('workflow:tool_params.params_name')}
                   </Th>
-                  <Th p={0} px={4} bg={'myGray.50'}>
+                  <Th p={0} px={4} bg={'blackAlpha.50'}>
                     {t('workflow:tool_params.params_description')}
                   </Th>
-                  <Th p={0} px={4} bg={'myGray.50'} borderBottomRightRadius={'none !important'}>
+                  <Th p={0} px={4} bg={'blackAlpha.50'} borderBottomRightRadius={'none !important'}>
                     {t('common:common.Operation')}
                   </Th>
                 </Tr>
@@ -89,7 +89,7 @@ const NodeToolParams = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                       borderBottom={index === inputs.length - 1 ? 'none' : undefined}
                     >
                       <Flex alignItems={'center'} fontSize={'xs'}>
-                        <MyIcon name={'checkCircle'} w={'14px'} mr={1} color={'myGray.600'} />
+                        <MyIcon name={'checkCircle'} w={'14px'} mr={1} color={'gray.500'} />
                         {item.key}
                       </Flex>
                     </Td>
@@ -111,15 +111,15 @@ const NodeToolParams = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                         <Flex
                           mr={3}
                           p={1}
-                          color={'myGray.500'}
+                          color={'gray.500'}
                           rounded={'sm'}
                           alignItems={'center'}
                           bg={'transparent'}
                           transition={'background 0.1s'}
                           cursor={'pointer'}
                           _hover={{
-                            bg: 'myGray.05',
-                            color: 'primary.600'
+                            bg: 'blackAlpha.50',
+                            color: 'primary.500'
                           }}
                           onClick={() => setEditField(item)}
                         >
@@ -127,14 +127,14 @@ const NodeToolParams = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                         </Flex>
                         <Flex
                           p={1}
-                          color={'myGray.500'}
+                          color={'gray.500'}
                           rounded={'sm'}
                           alignItems={'center'}
                           bg={'transparent'}
                           transition={'background 0.1s'}
                           cursor={'pointer'}
                           _hover={{
-                            bg: 'myGray.05',
+                            bg: 'blackAlpha.50',
                             color: 'red.500'
                           }}
                           onClick={() => {

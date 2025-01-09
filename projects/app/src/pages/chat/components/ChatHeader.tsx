@@ -153,7 +153,7 @@ const MobileDrawer = ({
       <Box
         width={'100%'}
         minH={'10vh'}
-        background={'white'}
+        bg={'var(--chakra-colors-chakra-body-bg)'}
         onClick={(e) => e.stopPropagation()}
         borderRadius={'0 0 10px 10px'}
         position={'relative'}
@@ -174,10 +174,17 @@ const MobileDrawer = ({
                     width={'100%'}
                     borderRadius={'md'}
                     alignItems={'center'}
+                    _hover={{
+                      bg: 'whiteAlpha.200'
+                    }}
                     {...(item._id === appId
                       ? {
-                          backgroundColor: 'primary.50 !important',
-                          color: 'primary.600'
+                          bg: 'primary.100',
+                          color: 'primary.600',
+                          _dark: {
+                            bg: 'primary.800',
+                            color: 'primary.200'
+                          }
                         }
                       : {
                           onClick: () => onclickApp(item._id)

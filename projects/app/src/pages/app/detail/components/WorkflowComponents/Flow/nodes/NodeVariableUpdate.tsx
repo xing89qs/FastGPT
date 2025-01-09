@@ -171,10 +171,10 @@ const NodeVariableUpdate = ({ data, selected }: NodeProps<FlowNodeItemType>) => 
               >
                 <Button
                   size={'xs'}
-                  bg={'white'}
+                  bg={'whiteAlpha.100'}
                   borderRadius={'xs'}
                   mx={2}
-                  color={'primary.600'}
+                  color={'primary.500'}
                   onClick={() => {
                     onUpdateList(
                       updateList.map((update, i) => {
@@ -229,7 +229,10 @@ const NodeVariableUpdate = ({ data, selected }: NodeProps<FlowNodeItemType>) => 
               if (valueType === WorkflowIOValueTypeEnum.number) {
                 return (
                   <NumberInput value={Number(inputValue) || 0}>
-                    <NumberInputField bg="white" onChange={(e) => handleUpdate(e.target.value)} />
+                    <NumberInputField
+                      bg="var(--chakra-colors-whiteAlpha-900)"
+                      onChange={(e) => handleUpdate(e.target.value)}
+                    />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
                       <NumberDecrementStepper />

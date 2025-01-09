@@ -57,17 +57,21 @@ export async function dispatchStoryCreation(props: Props): Promise<Response> {
 
   // Make HTTP request to story creation API
   try {
-    const response = await fetch('http://localhost:8111/get_talk_default', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prefix: '',
-        choice: '',
-        article_setting: description
-      })
-    });
+    const response = await fetch(
+      'http://localhost:8111/get_talk_default',
+      //'http://18.206.153.96:7860/get_talk_default',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prefix: '',
+          choice: '',
+          article_setting: description
+        })
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`API request failed with status ${response.status}`);

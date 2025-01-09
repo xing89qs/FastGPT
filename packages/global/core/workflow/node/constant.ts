@@ -138,7 +138,10 @@ export enum FlowNodeTypeEnum {
   loopEnd = 'loopEnd',
   formInput = 'formInput',
   comment = 'comment',
-  imageGeneration = 'imageGeneration'
+  imageGeneration = 'imageGeneration',
+  videoGeneration = 'videoGeneration',
+  gameCreator = 'gameCreator',
+  gameCreator = 'gameCreator'
 }
 
 // node IO value type

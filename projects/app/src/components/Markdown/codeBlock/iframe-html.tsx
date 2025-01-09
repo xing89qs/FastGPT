@@ -215,9 +215,9 @@ const IframeHtmlCodeBlock = ({
                 justifyContent="space-between"
                 alignItems="center"
                 p={4}
-                bg="white"
+                bg="var(--chakra-colors-chakra-body-bg)"
                 borderBottom="1px solid"
-                borderColor="gray.300"
+                borderColor="whiteAlpha.300"
                 height="60px"
               >
                 <Box fontSize="lg" color="myGray.900">

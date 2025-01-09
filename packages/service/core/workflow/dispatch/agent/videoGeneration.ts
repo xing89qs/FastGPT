@@ -12,14 +12,14 @@ type Props = ModuleDispatchProps<{
 
 type Response = DispatchNodeResultType<{
   [NodeOutputKeyEnum.success]: boolean;
-  [NodeOutputKeyEnum.audioResult]: {
-    audioUrl: string;
+  [NodeOutputKeyEnum.videoResult]: {
+    videoUrl: string;
     role: string;
     text: string;
   }[];
 }>;
 
-export async function dispatchAudioGeneration(props: Props): Promise<Response> {
+export async function dispatchVideoGeneration(props: Props): Promise<Response> {
   const {
     params: { storyCreation }
   } = props;
@@ -31,24 +31,22 @@ export async function dispatchAudioGeneration(props: Props): Promise<Response> {
   try {
     return {
       [NodeOutputKeyEnum.success]: true,
-      [NodeOutputKeyEnum.audioResult]: storyCreation.map((dialog, index) => ({
-        // audioUrl: 'http://localhost:8111/tts?txt=' + dialog.text + '&c=' + dialog.role,
-        audioUrl: 'http://18.206.153.96:7860/tts?text=' + dialog.text + '&c=' + dialog.role,
+      [NodeOutputKeyEnum.videoResult]: storyCreation.map((dialog) => ({
+        videoUrl: 'http://localhost:8111/get_image?txt=' + dialog.text + '&c=' + dialog.role,
         role: dialog.role,
         text: dialog.text
       })),
       [DispatchNodeResponseKeyEnum.nodeResponse]: {
-        audioResult: storyCreation.map((dialog, index) => ({
-          // audioUrl: 'http://localhost:8111/tts?txt=' + dialog.text + '&c=' + dialog.role,
-          audioUrl: 'http://18.206.153.96:7860/tts?text=' + dialog.text + '&c=' + dialog.role,
+        videoResult: storyCreation.map((dialog) => ({
+          videoUrl: 'http://localhost:8111/get_image?txt=' + dialog.text + '&c=' + dialog.role,
           role: dialog.role,
           text: dialog.text
         }))
       }
     };
   } catch (error) {
-    console.error('Audio generation API error:', error);
+    console.error('Video generation API error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    throw new Error('Failed to generate audio: ' + errorMessage);
+    throw new Error('Failed to generate video: ' + errorMessage);
   }
 }

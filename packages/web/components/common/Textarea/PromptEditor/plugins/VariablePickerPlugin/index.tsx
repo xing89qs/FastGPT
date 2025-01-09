@@ -57,6 +57,10 @@ export default function VariablePickerPlugin({
           ? ReactDOM.createPortal(
               <Box
                 bg={'white'}
+                _dark={{
+                  bg: 'gray.800',
+                  borderColor: 'whiteAlpha.300'
+                }}
                 boxShadow={'lg'}
                 borderWidth={'1px'}
                 borderColor={'borderColor.base'}

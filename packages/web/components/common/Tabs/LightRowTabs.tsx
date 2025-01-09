@@ -80,7 +80,8 @@ const LightRowTabs = <ValueType = string,>({
                   borderBottomColor: activeColor
                 }
               : {
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  color: 'myGray.800'
                 })}
             onClick={() => {
               if (value === item.value) return;

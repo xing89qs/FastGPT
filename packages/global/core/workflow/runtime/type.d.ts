@@ -113,6 +113,11 @@ export type DispatchNodeResponseType = {
     role: string;
     text: string;
   }[];
+  videoResult?: {
+    videoUrl: string;
+    role: string;
+    text: string;
+  }[];
 
   // bill
   tokens?: number;

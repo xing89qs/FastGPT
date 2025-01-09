@@ -280,6 +280,10 @@ const MultipleReferenceSelector = ({
                   <Flex
                     alignItems={'center'}
                     key={index}
+                    _dark={{
+                      bg: 'primary.900',
+                      color: 'myGray.100'
+                    }}
                     bg={'primary.50'}
                     color={'myGray.900'}
                     py={1}

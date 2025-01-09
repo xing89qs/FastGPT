@@ -310,9 +310,9 @@ const ChatItem = (props: Props) => {
                       w={'1rem'}
                       cursor="pointer"
                       p="5px"
-                      bg="white"
+                      bg={'whiteAlpha.900'}
                       name={'copy'}
-                      color={'myGray.500'}
+                      color={'gray.500'}
                       _hover={{ color: 'primary.600' }}
                       onClick={() => copyData(formatChatValue2InputType(value).text ?? '')}
                     />

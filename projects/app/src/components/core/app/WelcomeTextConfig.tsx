@@ -26,6 +26,9 @@ const WelcomeTextConfig = (props: TextareaProps) => {
         rows={6}
         fontSize={'sm'}
         bg={'white'}
+        _dark={{
+          bg: 'gray.800'
+        }}
         minW={'384px'}
         placeholder={t('common:core.app.tip.welcomeTextTip')}
         autoHeight

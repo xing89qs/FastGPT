@@ -98,7 +98,8 @@ export const MultipleRowSelect = ({
                 px={1.5}
                 borderRadius={'sm'}
                 _hover={{
-                  bg: 'primary.50'
+                  bg: 'myGray.100',
+                  color: 'primary.700'
                 }}
                 onClick={() => {
                   const newValue = [...cloneValue];
@@ -124,8 +125,8 @@ export const MultipleRowSelect = ({
                 }}
                 {...(item.value === selectedValue
                   ? {
-                      bg: 'primary.50',
-                      color: 'primary.600'
+                      bg: 'gray.700',
+                      color: 'white'
                     }
                   : {})}
               >
@@ -181,11 +182,18 @@ export const MultipleRowSelect = ({
           _active={{
             transform: 'none'
           }}
+          bg={'gray.800'}
+          color={'gray.100'}
+          borderColor={'gray.100'}
+          _hover={{
+            bg: 'gray.700',
+            borderColor: 'primary.500'
+          }}
           {...(isOpen
             ? {
                 boxShadow: '0px 0px 0px 2.4px rgba(51, 112, 255, 0.15)',
-                borderColor: 'primary.600',
-                color: 'primary.700'
+                borderColor: 'primary.500',
+                color: 'primary.500'
               }
             : {})}
           {...ButtonProps}
@@ -207,10 +215,11 @@ export const MultipleRowSelect = ({
           })()}
           w={'auto'}
           py={'6px'}
-          border={'1px solid #fff'}
-          boxShadow={
-            '0px 2px 4px rgba(161, 167, 179, 0.25), 0px 0px 1px rgba(121, 141, 159, 0.25);'
-          }
+          bg={'gray.800'}
+          color={'gray.100'}
+          border={'1px solid'}
+          borderColor={'gray.600'}
+          boxShadow={'dark-lg'}
           zIndex={99}
           maxH={'40vh'}
           overflowY={'auto'}
@@ -316,13 +325,21 @@ export const MultipleRowArraySelect = ({
                   px={2}
                   borderRadius={'md'}
                   _hover={{
-                    bg: 'primary.50',
-                    color: 'primary.600'
+                    bg: 'gray.200',
+                    color: 'primary.300'
                   }}
                   onClick={() => handleSelect(item)}
                   {...(isSelected ? { color: 'primary.600' } : {})}
                 >
-                  {showCheckbox && <Checkbox isChecked={isChecked} mr={1} />}
+                  {showCheckbox && (
+                    <Checkbox
+                      isChecked={isChecked}
+                      mr={1}
+                      colorScheme="primary"
+                      borderColor={'whiteAlpha.500'}
+                      _checked={{ bg: 'primary.500', borderColor: 'primary.500' }}
+                    />
+                  )}
                   <Box>{item.label}</Box>
                 </Flex>
               );
@@ -396,9 +413,11 @@ export const MultipleRowArraySelect = ({
                 bottom: '0'
               })}
           py={2}
-          bg={'white'}
-          border={'1px solid #fff'}
-          boxShadow={'5'}
+          bg={'gray.800'}
+          border={'1px solid'}
+          borderColor={'gray.600'}
+          boxShadow={'dark-lg'}
+          color={'gray.100'}
           borderRadius={'md'}
           zIndex={1000}
           minW={'100%'}

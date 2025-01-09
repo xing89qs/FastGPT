@@ -37,6 +37,8 @@ import { ToolParamsNode } from './system/toolParams';
 import { StoryCreationModule } from './system/storyCreation';
 import { AudioGenerationModule } from './system/audioGeneration';
 import { ImageGenerationModule } from './system/imageGeneration';
+import { VideoGenerationModule } from './system/videoGeneration';
+import { GameNode } from './system/gameNode';
 const systemNodes: FlowNodeTemplateType[] = [
   AiChatModule,
   TextEditorNode,
@@ -48,6 +50,8 @@ const systemNodes: FlowNodeTemplateType[] = [
   StoryCreationModule,
   AudioGenerationModule,
   ImageGenerationModule,
+  VideoGenerationModule,
+  GameNode,
   ToolModule,
   ToolParamsNode,
   StopToolNode,

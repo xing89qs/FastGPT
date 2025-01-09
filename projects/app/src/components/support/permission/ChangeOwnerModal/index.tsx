@@ -117,7 +117,7 @@ export function ChangeOwnerModal({
               gap={2}
               p={1}
               boxShadow="lg"
-              bg="white"
+              bg={'var(--chakra-colors-chakra-body-bg)'}
               borderRadius="md"
               zIndex={10}
               maxH={'300px'}

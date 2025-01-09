@@ -246,8 +246,8 @@ const NodeTemplatesModal = ({ isOpen, onClose }: ModuleTemplateListProps) => {
         pb={4}
         h={isOpen ? 'calc(100% - 20px)' : '0'}
         w={isOpen ? ['100%', `${sliderWidth}px`] : '0'}
-        bg={'white'}
-        boxShadow={'3px 0 20px rgba(0,0,0,0.2)'}
+        bg={'var(--chakra-colors-chakra-body-bg)'}
+        boxShadow={'3px 0 20px var(--chakra-colors-blackAlpha-400)'}
         borderRadius={'0 20px 20px 0'}
         transition={'.2s ease'}
         userSelect={'none'}
@@ -742,7 +742,12 @@ const RenderList = React.memo(function RenderList({
   return templates.length === 0 ? (
     <EmptyTip text={t('app:module.No Modules')} />
   ) : (
-    <Box flex={'1 0 0'} overflow={'overlay'} px={formatTemplatesArray.length > 1 ? 2 : 5}>
+    <Box
+      color={'myGray.900'}
+      flex={'1 0 0'}
+      overflow={'overlay'}
+      px={formatTemplatesArray.length > 1 ? 2 : 5}
+    >
       <Accordion defaultIndex={[0]} allowMultiple reduceMotion>
         {formatTemplatesArray.length > 1 ? (
           <>

@@ -331,7 +331,10 @@ const NodeCard = (props: Props) => {
       minW={minW}
       maxW={maxW}
       minH={minH}
-      bg={'white'}
+      bg={'myGray.900'}
+      _dark={{
+        bg: '#22272E'
+      }}
       outline={selected ? '2px solid' : '1px solid'}
       borderRadius={'lg'}
       boxShadow={

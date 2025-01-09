@@ -66,7 +66,8 @@ const NodeUserSelect = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                 <Box position={'relative'} mt={1}>
                   <Input
                     defaultValue={item.value}
-                    bg={'white'}
+                    bg={'whiteAlpha.900'}
+                    _dark={{ bg: 'whiteAlpha.50' }}
                     fontSize={'sm'}
                     onChange={(e) => {
                       const newVal = options.map((val) =>
@@ -159,7 +160,8 @@ const NodeUserSelect = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                 <Box position={'relative'} mt={1}>
                   <Input
                     defaultValue={item.value}
-                    bg={'white'}
+                    bg={'whiteAlpha.50'}
+                    color={'inherit'}
                     fontSize={'sm'}
                     onChange={(e) => {
                       const newVal = options.map((val) =>

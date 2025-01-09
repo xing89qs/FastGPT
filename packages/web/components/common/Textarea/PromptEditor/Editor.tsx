@@ -43,7 +43,7 @@ export default function Editor({
   onBlur,
   value,
   placeholder = '',
-  bg = 'white'
+  bg = 'myWhite.600'
 }: {
   minH?: number;
   maxH?: number;

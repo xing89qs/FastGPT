@@ -1027,6 +1027,13 @@ const ChatBox = ({
       flexDirection={'column'}
       h={'100%'}
       position={'relative'}
+      bg={'transparent'}
+      _light={{
+        bg: 'white'
+      }}
+      _dark={{
+        bg: 'gray.800'
+      }}
     >
       <Script src={getWebReqUrl('/js/html2pdf.bundle.min.js')} strategy="lazyOnload"></Script>
       {/* chat box container */}

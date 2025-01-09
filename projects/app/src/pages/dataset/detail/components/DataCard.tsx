@@ -300,6 +300,9 @@ const DataCard = () => {
                   >
                     <MyIcon
                       bg={'white'}
+                      _dark={{
+                        bg: 'gray.800'
+                      }}
                       color={'myGray.600'}
                       borderRadius={'sm'}
                       border={'1px'}

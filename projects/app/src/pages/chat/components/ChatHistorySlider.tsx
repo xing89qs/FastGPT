@@ -88,7 +88,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
       flexDirection={'column'}
       w={'100%'}
       h={'100%'}
-      bg={'white'}
+      bg={'var(--chakra-colors-chakra-body-bg)'}
       borderRight={['', theme.borders.base]}
       whiteSpace={'nowrap'}
     >

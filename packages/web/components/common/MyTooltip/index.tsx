@@ -8,6 +8,12 @@ const MyTooltip = ({ children, shouldWrapChildren = true, ...props }: Props) => 
     <Tooltip
       className="chakra-tooltip"
       bg={'white'}
+      _dark={{
+        bg: 'gray.800',
+        color: 'white',
+        boxShadow: '1px 1px 10px rgba(0,0,0,0.4)',
+        arrowShadowColor: 'rgba(0,0,0,0.2)'
+      }}
       arrowShadowColor={'rgba(0,0,0,0.05)'}
       hasArrow
       arrowSize={12}

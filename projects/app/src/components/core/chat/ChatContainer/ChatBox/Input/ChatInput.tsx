@@ -177,6 +177,9 @@ const ChatInput = ({
         pl={5}
         alignItems={'center'}
         bg={'white'}
+        _dark={{
+          bg: 'gray.800'
+        }}
         color={'primary.500'}
         visibility={isSpeaking && isTransCription ? 'visible' : 'hidden'}
       >
@@ -212,6 +215,11 @@ const ChatInput = ({
 
         {/* input area */}
         <Textarea
+          bg={'white'}
+          _dark={{
+            bg: 'gray.800',
+            color: 'white'
+          }}
           ref={TextareaDom}
           py={0}
           pl={2}
@@ -470,18 +478,35 @@ const ChatInput = ({
         pt={fileList.length > 0 ? '0' : ['14px', '18px']}
         pb={['14px', '18px']}
         position={'relative'}
-        boxShadow={isSpeaking ? `0 0 10px rgba(54,111,255,0.4)` : `0 0 10px rgba(0,0,0,0.2)`}
+        boxShadow={
+          isSpeaking
+            ? `0 0 10px rgba(54,111,255,0.4)`
+            : {
+                light: `0 0 10px rgba(0,0,0,0.2)`,
+                dark: `0 0 10px rgba(255,255,255,0.2)`
+              }
+        }
         borderRadius={['none', 'md']}
         bg={'white'}
+        _dark={{
+          bg: 'gray.800',
+          border: '1px solid rgba(255,255,255,0.12)'
+        }}
         overflow={'display'}
         {...(isPc
           ? {
               border: '1px solid',
-              borderColor: 'rgba(0,0,0,0.12)'
+              borderColor: {
+                light: 'rgba(0,0,0,0.12)',
+                dark: 'rgba(255,255,255,0.12)'
+              }
             }
           : {
               borderTop: '1px solid',
-              borderTopColor: 'rgba(0,0,0,0.15)'
+              borderTopColor: {
+                light: 'rgba(0,0,0,0.15)',
+                dark: 'rgba(255,255,255,0.15)'
+              }
             })}
       >
         {/* Chat input guide box */}

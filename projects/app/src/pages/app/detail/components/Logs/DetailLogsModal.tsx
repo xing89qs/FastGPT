@@ -80,8 +80,8 @@ const DetailLogsModal = ({ appId, chatId, onClose }: Props) => {
         h={['100%', '96%']}
         w={'100%'}
         maxW={['100%', '600px']}
-        bg={'white'}
-        boxShadow={'3px 0 20px rgba(0,0,0,0.2)'}
+        bg={'whiteAlpha.900'}
+        boxShadow={'3px 0 20px rgba(0,0,0,0.3)'}
         borderRadius={'md'}
         overflow={'hidden'}
         transition={'.2s ease'}

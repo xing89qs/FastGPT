@@ -525,7 +525,10 @@ const RenderForm = ({
         overflow={'hidden'}
         borderWidth={'1px'}
         borderBottom={'none'}
-        bg={'white'}
+        bg={'myGray.50'}
+        _dark={{
+          bg: 'myGray.800'
+        }}
       >
         <TableContainer overflowY={'visible'} overflowX={'unset'}>
           <Table>
@@ -688,7 +691,7 @@ const RenderBody = ({
         )}
         {typeInput?.value === ContentTypes.json && (
           <PromptEditor
-            bg={'white'}
+            bg={'myGray.50'}
             showOpenModal={false}
             variableLabels={variables}
             minH={200}

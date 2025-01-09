@@ -75,7 +75,8 @@ import { dispatchFormInput } from './interactive/formInput';
 import { dispatchToolParams } from './agent/runTool/toolParams';
 import { dispatchAudioGeneration } from './agent/audioGeneration';
 import { dispatchImageGeneration } from './agent/imageGeneration';
-
+import { dispatchVideoGeneration } from './agent/videoGeneration';
+import { dispatchGameCreation } from './agent/gameCreatorGeneration';
 const callbackMap: Record<FlowNodeTypeEnum, Function> = {
   [FlowNodeTypeEnum.workflowStart]: dispatchWorkflowStart,
   [FlowNodeTypeEnum.answerNode]: dispatchAnswer,
@@ -87,6 +88,8 @@ const callbackMap: Record<FlowNodeTypeEnum, Function> = {
   [FlowNodeTypeEnum.storyCreation]: dispatchStoryCreation,
   [FlowNodeTypeEnum.audioGeneration]: dispatchAudioGeneration,
   [FlowNodeTypeEnum.imageGeneration]: dispatchImageGeneration,
+  [FlowNodeTypeEnum.videoGeneration]: dispatchVideoGeneration,
+  [FlowNodeTypeEnum.gameCreator]: dispatchGameCreation,
   [FlowNodeTypeEnum.httpRequest468]: dispatchHttp468Request,
   [FlowNodeTypeEnum.appModule]: dispatchRunAppNode,
   [FlowNodeTypeEnum.pluginModule]: dispatchRunPlugin,

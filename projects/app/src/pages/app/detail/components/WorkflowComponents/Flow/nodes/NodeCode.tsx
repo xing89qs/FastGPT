@@ -54,7 +54,8 @@ const NodeCode = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
               </Box>
             </Flex>
             <CodeEditor
-              bg={'white'}
+              bg={'whiteAlpha.900'}
+              _dark={{ bg: 'gray.700' }}
               borderRadius={'sm'}
               value={item.value}
               onChange={(e) => {

@@ -233,7 +233,9 @@ export enum NodeInputKeyEnum {
   storyContextDialogs = 'storyContextDialogs',
   storyChoices = 'storyChoices',
   storyCreation = 'storyCreation',
-  audioGeneration = 'audioGeneration'
+  audioGeneration = 'audioGeneration',
+  platform = 'platform',
+  operatingSystem = 'operatingSystem'
 }
 
 export enum NodeOutputKeyEnum {
@@ -290,7 +292,10 @@ export enum NodeOutputKeyEnum {
   storyChoices = 'storyChoices',
   audioUrls = 'audioUrls',
   audioResult = 'audioResult',
-  imageResult = 'imageResult'
+  imageResult = 'imageResult',
+  videoResult = 'videoResult',
+  gameConfig = 'gameConfig',
+  gameConfig = 'gameConfig'
 }
 
 export enum VariableInputEnum {

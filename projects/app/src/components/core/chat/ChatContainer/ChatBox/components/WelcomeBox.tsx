@@ -19,7 +19,10 @@ const WelcomeBox = ({ welcomeText }: { welcomeText: string }) => {
           order={2}
           mt={2}
           {...MessageCardStyle}
-          bg={'white'}
+          bg={'myGray.50'}
+          _dark={{
+            bg: 'myGray.800'
+          }}
           boxShadow={'0 0 8px rgba(0,0,0,0.15)'}
         >
           <Markdown source={`~~~guide \n${welcomeText}`} forbidZhFormat />

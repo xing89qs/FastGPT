@@ -46,12 +46,12 @@ const ContextMenu = () => {
         position={'absolute'}
         top={menu.top}
         left={menu.left}
-        bg={'white'}
+        bg={'var(--chakra-colors-chakra-body-bg)'}
         w={'120px'}
         rounded={'md'}
-        boxShadow={'0px 2px 4px 0px #A1A7B340'}
+        boxShadow={'var(--chakra-shadows-md)'}
         className="context-menu"
-        color={'myGray.600'}
+        color={'var(--chakra-colors-gray-600)'}
         p={1}
         zIndex={10}
       >

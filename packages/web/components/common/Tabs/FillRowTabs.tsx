@@ -41,12 +41,12 @@ const FillRowTabs = ({ list, value, onChange, py = '7px', px = '12px', ...props 
           whiteSpace={'noWrap'}
           {...(value === item.value
             ? {
-                bg: 'white',
+                bg: 'myGray.900',
                 boxShadow: '1.5',
-                color: 'primary.600'
+                color: 'primary.300'
               }
             : {
-                color: 'myGray.500',
+                color: 'myGray.700',
                 _hover: {
                   color: 'primary.600'
                 },

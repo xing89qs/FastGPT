@@ -162,7 +162,7 @@ const ButtonEdge = (props: EdgeProps) => {
             pointerEvents={'all'}
             w={'18px'}
             h={'18px'}
-            bg={'white'}
+            bg={'whiteAlpha.900'}
             borderRadius={'18px'}
             cursor={'pointer'}
             zIndex={defaultZIndex + 1000}

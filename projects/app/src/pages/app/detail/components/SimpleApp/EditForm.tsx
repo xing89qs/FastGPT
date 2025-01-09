@@ -307,8 +307,12 @@ const EditForm = ({
                   overflow={'hidden'}
                   alignItems={'center'}
                   p={2.5}
-                  bg={'white'}
+                  bg={'whiteAlpha.900'}
                   boxShadow={'0 4px 8px -2px rgba(16,24,40,.1),0 2px 4px -2px rgba(16,24,40,.06)'}
+                  _dark={{
+                    bg: 'gray.700',
+                    boxShadow: '0 4px 8px -2px rgba(0,0,0,.3),0 2px 4px -2px rgba(0,0,0,.2)'
+                  }}
                   borderRadius={'md'}
                   border={theme.borders.base}
                   _hover={{

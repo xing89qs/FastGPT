@@ -98,7 +98,7 @@ const NodeStoryCreation = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                     <Input
                       defaultValue={item.role}
                       placeholder="Role"
-                      bg={'white'}
+                      bg={'whiteAlpha.50'}
                       fontSize={'sm'}
                       onChange={(e) => {
                         const newVal = dialogs.map((val) =>
@@ -129,7 +129,8 @@ const NodeStoryCreation = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                     <Input
                       defaultValue={item.text}
                       placeholder="Content"
-                      bg={'white'}
+                      bg={'whiteAlpha.900'}
+                      _dark={{ bg: 'whiteAlpha.50' }}
                       fontSize={'sm'}
                       onChange={(e) => {
                         const newVal = dialogs.map((val) =>
@@ -218,7 +219,8 @@ const NodeStoryCreation = ({ data, selected }: NodeProps<FlowNodeItemType>) => {
                   <Input
                     as="textarea"
                     defaultValue={item}
-                    bg={'white'}
+                    bg={'whiteAlpha.50'}
+                    color={'inherit'}
                     fontSize={'sm'}
                     padding={'8px 12px'}
                     resize={'vertical'}

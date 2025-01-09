@@ -88,7 +88,7 @@ const RenderTool = React.memo(
               <AccordionItem borderTop={'none'} borderBottom={'none'}>
                 <AccordionButton
                   w={'auto'}
-                  bg={'white'}
+                  bg={'var(--chakra-colors-chakra-body-bg)'}
                   borderRadius={'md'}
                   borderWidth={'1px'}
                   borderColor={'myGray.200'}
@@ -96,7 +96,7 @@ const RenderTool = React.memo(
                   pl={3}
                   pr={2.5}
                   _hover={{
-                    bg: 'auto'
+                    bg: 'var(--chakra-colors-chakra-body-bg)'
                   }}
                 >
                   <Avatar src={tool.toolAvatar} w={'1.25rem'} h={'1.25rem'} borderRadius={'sm'} />

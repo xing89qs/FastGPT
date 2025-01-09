@@ -38,6 +38,9 @@ const PluginCard = ({
       border={'base'}
       boxShadow={'2'}
       bg={'white'}
+      _dark={{
+        bg: 'gray.800'
+      }}
       borderRadius={'10px'}
       position={'relative'}
       display={'flex'}

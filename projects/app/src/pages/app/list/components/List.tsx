@@ -167,7 +167,10 @@ const ListItem = () => {
                 cursor={'pointer'}
                 border={'base'}
                 boxShadow={'2'}
-                bg={'white'}
+                bg={'whiteAlpha.900'}
+                _dark={{
+                  bg: 'gray.700'
+                }}
                 borderRadius={'lg'}
                 position={'relative'}
                 display={'flex'}

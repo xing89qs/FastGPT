@@ -58,17 +58,19 @@ const SliderApps = ({ apps, activeAppId }: { apps: AppListItemType[]; activeAppI
             py={2}
             px={3}
             borderRadius={'md'}
-            _hover={{ bg: 'myGray.200' }}
+            _hover={{ bg: 'myGray.100' }}
             onClick={() => router.push('/app/list')}
+            color={'myGray.800'}
           >
             <IconButton
               mr={3}
               icon={<MyIcon name={'common/backFill'} w={'1rem'} color={'primary.500'} />}
-              bg={'white'}
-              boxShadow={'1px 1px 9px rgba(0,0,0,0.15)'}
+              bg={'transparent'}
+              boxShadow={'1px 1px 9px rgba(0,0,0,0.25)'}
               size={'smSquare'}
               borderRadius={'50%'}
               aria-label={''}
+              _hover={{ bg: 'whiteAlpha.200' }}
             />
             {t('common:core.chat.Exit Chat')}
           </Flex>
@@ -141,14 +143,15 @@ const SliderApps = ({ apps, activeAppId }: { apps: AppListItemType[]; activeAppI
             fontSize={'sm'}
             {...(item._id === activeAppId
               ? {
-                  bg: 'white',
-                  boxShadow: 'md',
-                  color: 'primary.600'
+                  bg: 'primary.50',
+                  boxShadow: 'sm',
+                  color: 'myGray.800'
                 }
               : {
                   _hover: {
-                    bg: 'myGray.200'
+                    bg: 'myGray.300'
                   },
+                  color: 'myGray.800',
                   onClick: () => onChangeApp(item._id)
                 })}
           >

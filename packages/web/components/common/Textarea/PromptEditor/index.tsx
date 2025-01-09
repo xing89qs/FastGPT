@@ -20,7 +20,7 @@ const PromptEditor = ({
   maxLength,
   placeholder,
   title,
-  bg = 'white'
+  bg = 'myWhite.600'
 }: {
   showOpenModal?: boolean;
   variables?: EditorVariablePickerType[];
